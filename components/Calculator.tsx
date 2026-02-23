@@ -37,21 +37,13 @@ export default function Calculator() {
     }) => {
       const pct = ((value - min) / (max - min)) * 100;
       return (
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-2">
-            <h4
-              className="text-sm desktop:text-base text-[#2b2b2b]"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-            >
-              {label}
-            </h4>
-            <span
-              className="text-[#2b2b2b] font-bold text-lg ml-4 shrink-0"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-            >
-              {value}
-            </span>
-          </div>
+        <div className="mb-[30px]">
+          <h4
+            className="text-[16px] text-[#2b2b2b] mb-[15px]"
+            style={{ fontFamily: 'YSm, Arial, sans-serif' }}
+          >
+            {label}
+          </h4>
           <div className="relative">
             <input
               type="range"
@@ -61,12 +53,18 @@ export default function Calculator() {
               onChange={(e) => onChange(Number(e.target.value))}
               className="w-full"
               style={{
-                background: `linear-gradient(to right, #fee334 0%, #fee334 ${pct}%, #dee0e3 ${pct}%, #dee0e3 100%)`,
+                background: `linear-gradient(to right, #fce000 0%, #fce000 ${pct}%, #dee0e3 ${pct}%, #dee0e3 100%)`,
               }}
             />
           </div>
           <div className="flex justify-between text-xs text-[#9e9b98] mt-1">
             <span>{min}</span>
+            <span
+              className="text-[#2b2b2b] font-bold text-[16px]"
+              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
+            >
+              {value}
+            </span>
             <span>{max}</span>
           </div>
         </div>
@@ -76,36 +74,39 @@ export default function Calculator() {
   );
 
   return (
-    <section className="py-12 desktop:py-16 bg-[#f5f4f2]" id="calc">
-      <div className="max-w-[920px] mx-auto px-4">
+    <section className="pb-[50px]" id="calc">
+      <div className="max-w-[920px] mx-auto px-[15px]">
         <h2
-          className="text-3xl desktop:text-4xl mb-8 text-center"
-          style={{ fontFamily: 'YSb, Arial, sans-serif' }}
+          className="text-[40px] leading-[44px] mb-8 mt-14"
+          style={{ fontFamily: 'YS, Arial, sans-serif' }}
         >
           Калькулятор дохода
         </h2>
 
         <div
-          className="bg-white rounded-2xl p-6 desktop:p-10"
-          style={{ boxShadow: '0 4px 32px rgba(0,0,0,.08)' }}
+          className="rounded-[24px] p-[28px]"
+          style={{ boxShadow: '0 4px 32px rgba(0,0,0,.08)', boxSizing: 'border-box' }}
         >
           {/* Transport select */}
-          <div className="mb-8">
+          <div className="mb-[30px]">
             <h3
-              className="text-lg desktop:text-xl mb-3"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
+              className="text-[20px] mb-[15px]"
+              style={{ fontFamily: 'YS, Arial, sans-serif' }}
             >
               Как будете доставлять?
             </h3>
             <select
               value={transport}
               onChange={(e) => setTransport(e.target.value)}
-              className="w-full tablet:w-auto border border-gray-200 rounded-xl px-5 py-3 text-base bg-white text-[#2b2b2b] cursor-pointer appearance-none pr-10"
+              className="w-full tablet:w-auto cursor-pointer appearance-none"
               style={{
+                background: '#f5f4f2',
+                border: 'none',
+                borderRadius: '16px',
+                fontSize: '20px',
+                padding: '4px 0',
                 fontFamily: 'YS, Arial, sans-serif',
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239e9b98' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right 14px center',
+                boxSizing: 'border-box',
               }}
             >
               <option value="1">Машина — 472 ₽/ч</option>
@@ -115,21 +116,23 @@ export default function Calculator() {
           </div>
 
           {/* Mode info */}
-          <div className="mb-8 bg-[#edeff1] rounded-xl p-5">
-            <h3
-              className="text-base desktop:text-lg mb-1"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-            >
-              Режим доставки
-            </h3>
+          <div
+            className="mb-[30px]"
+            style={{
+              padding: '16px',
+              boxSizing: 'border-box',
+              borderRadius: '20px',
+              border: '3px solid #f5f4f2',
+            }}
+          >
             <h4
-              className="text-base mb-1"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
+              className="text-[20px] mb-[10px]"
+              style={{ fontFamily: 'YS, Arial, sans-serif' }}
             >
-              Когда смогу
+              Режим доставки — Когда смогу
             </h4>
             <p
-              className="text-sm text-[#555]"
+              className="text-[16px] text-[#555]"
               style={{ fontFamily: 'YS, Arial, sans-serif' }}
             >
               Можно начать в любое время и в любом месте. Доход зависит от количества выполненных заказов.
@@ -137,21 +140,25 @@ export default function Calculator() {
           </div>
 
           {/* Sliders grid */}
-          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-x-10">
-            <SliderWithValue
-              label="Сколько часов в день планируете работать"
-              value={hours}
-              min={2}
-              max={12}
-              onChange={setHours}
-            />
-            <SliderWithValue
-              label="Количество дней в месяц"
-              value={days}
-              min={1}
-              max={31}
-              onChange={setDays}
-            />
+          <div className="flex flex-col tablet:flex-row justify-between gap-x-[30px]">
+            <div className="tablet:w-[47%]">
+              <SliderWithValue
+                label="Сколько часов в день планируете работать"
+                value={hours}
+                min={2}
+                max={12}
+                onChange={setHours}
+              />
+            </div>
+            <div className="tablet:w-[47%]">
+              <SliderWithValue
+                label="Количество дней в месяц"
+                value={days}
+                min={1}
+                max={31}
+                onChange={setDays}
+              />
+            </div>
           </div>
 
           <SliderWithValue
@@ -163,27 +170,32 @@ export default function Calculator() {
           />
 
           {/* Result */}
-          <div className="mt-6 pt-6 border-t border-gray-100">
-            <h3
-              className="text-base text-[#9e9b98] mb-2"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Возможный доход
-            </h3>
-            <div
-              className="text-4xl desktop:text-5xl text-[#2b2b2b]"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-            >
-              {formatNumber(total)} <span className="text-2xl desktop:text-3xl font-normal">₽</span>
+          <div
+            className="mt-4 rounded-[24px] p-[24px]"
+            style={{ background: '#f1f0ed', boxSizing: 'border-box' }}
+          >
+            <div className="flex flex-wrap items-center gap-4">
+              <h3
+                className="text-[16px] text-[#2b2b2b]"
+                style={{ fontFamily: 'YS, Arial, sans-serif', fontWeight: 'normal', marginBottom: 0 }}
+              >
+                Возможный доход
+              </h3>
+              <div
+                className="text-[44px] text-[#2b2b2b]"
+                style={{ fontFamily: 'YSb, Arial, sans-serif' }}
+              >
+                {formatNumber(total)} ₽
+              </div>
             </div>
           </div>
 
           {/* Note */}
           <p
-            className="mt-6 text-xs text-[#9e9b98] leading-relaxed"
+            className="mt-[20px] text-[13px] text-[#9e9b98] leading-relaxed"
             style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
-            Данные расчетов дохода являются максимальными. Результаты индивидуальны и могут отличаться от указанных, а также зависят от города, часов доставки и вида транспорта. Указан максимальный показатель дохода партнеров сервиса Яндекс.Еда на территории РФ и на основе статистики за 5 месяцев. Чтобы узнать подробности, отправьте заявку.
+            Данные расчётов дохода являются максимальными. Результаты индивидуальны и могут отличаться от указанных, а также зависят от города, часов доставки и вида транспорта. Указан максимальный показатель дохода партнёров сервиса Яндекс.Еда на территории РФ на основе статистики за 5 месяцев. Чтобы узнать подробности, отправьте заявку.
           </p>
         </div>
       </div>

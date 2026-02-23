@@ -1,13 +1,13 @@
 export default function Footer() {
   return (
-    <footer className="bg-[#333] text-[#a0a0a0] py-10 mt-0">
-      <div className="max-w-[920px] mx-auto px-4">
+    <footer style={{ background: '#333', padding: '50px 0' }}>
+      <div className="max-w-[920px] mx-auto px-[15px]">
         <div className="flex justify-center gap-6 mb-6">
           <a
             href="https://vk.com/partnerofyandexeda"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#fee334] text-2xl hover:opacity-80 transition-opacity"
+            className="text-[#fee334] hover:opacity-80 transition-opacity"
             aria-label="ВКонтакте"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -18,7 +18,7 @@ export default function Footer() {
             href="https://t.me/partner_of_yandex_eda"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#fee334] text-2xl hover:opacity-80 transition-opacity"
+            className="text-[#fee334] hover:opacity-80 transition-opacity"
             aria-label="Telegram"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -26,12 +26,20 @@ export default function Footer() {
             </svg>
           </a>
         </div>
-        <div className="space-y-3 text-sm leading-relaxed">
-          <p>¹Сотрудничество с организациями, оказывающими услуги по доставке заказов, оформленных с помощью сервиса Яндекс Еда, а также прямое сотрудничество с курьерами-прямыми партнерами сервиса Яндекс Еда в статусе самозанятых. Условия и результаты индивидуальны и могут отличаться от указанных. Указан средний показатель дохода по территории РФ на основании данных статистики сервиса Яндекс Еда. Чтобы узнать подробности, отправьте заявку.</p>
-          <p>²Для курьеров-прямых партнеров сервиса Яндекс Еда в статусе самозанятых. Выплаты за пятницу, субботу, воскресенье производятся в понедельник. По вопросам сроков выплат курьерам, сотрудничающим с партнерами сервиса Яндекс Еда, необходимо обращаться в соответствующую организацию-партнера сервиса Яндекс Еда.</p>
-          <p>³Страхование вне слотов доступно для прямых самозанятых курьеров, при условии выполнения количества заказов.</p>
-          <p>⁴Доступно для прямых самозанятых партнеров сервиса при выполнении определенного количества заказов.</p>
-          <p className="text-[#666] mt-4">© 2024 Яндекс Еда</p>
+        <div style={{ color: '#a0a0a0' }}>
+          <p style={{ fontSize: '14px', lineHeight: '1.5', marginBottom: '15px', fontFamily: 'YS, Arial, sans-serif' }}>
+            ¹Сотрудничество с организациями, оказывающими услуги по доставке заказов, оформленных с помощью сервиса Яндекс Еда, а также прямое сотрудничество с курьерами-прямыми партнёрами сервиса Яндекс Еда в статусе самозанятых. Условия и результаты индивидуальны и могут отличаться от указанных. Указан средний показатель дохода по территории РФ на основании данных статистики сервиса Яндекс Еда. Чтобы узнать подробности, отправьте заявку.
+          </p>
+          <p style={{ fontSize: '14px', lineHeight: '1.5', marginBottom: '15px', fontFamily: 'YS, Arial, sans-serif' }}>
+            ²Для курьеров-прямых партнёров сервиса Яндекс Еда в статусе самозанятых. Выплаты за пятницу, субботу, воскресенье производятся в понедельник. По вопросам сроков выплат курьерам, сотрудничающим с партнёрами сервиса Яндекс Еда, необходимо обращаться в соответствующую организацию-партнёра сервиса Яндекс Еда.
+          </p>
+          <p style={{ fontSize: '14px', lineHeight: '1.5', marginBottom: '15px', fontFamily: 'YS, Arial, sans-serif' }}>
+            ³Страхование вне слотов доступно для прямых самозанятых курьеров при условии выполнения количества заказов.
+          </p>
+          <p style={{ fontSize: '14px', lineHeight: '1.5', marginBottom: '15px', fontFamily: 'YS, Arial, sans-serif' }}>
+            ⁴Доступно для прямых самозанятых партнёров сервиса при выполнении определённого количества заказов.
+          </p>
+          <p style={{ fontSize: '14px', color: '#666', fontFamily: 'YS, Arial, sans-serif' }}>© 2024 Яндекс Еда</p>
         </div>
       </div>
     </footer>

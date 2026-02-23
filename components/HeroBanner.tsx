@@ -4,49 +4,69 @@ const CTA_URL =
 export default function HeroBanner() {
   return (
     <section
-      className="relative min-h-[500px] tablet:min-h-[600px] flex items-center"
+      className="relative flex items-center"
       style={{
-        backgroundImage: 'url(/img/banner.jpg)',
+        background: 'url(/img/banner.jpg) center no-repeat',
         backgroundSize: 'cover',
-        backgroundPosition: 'center top',
+        padding: '90px 0',
+        marginTop: '64px',
       }}
     >
       {/* Mobile banner override */}
       <style>{`
-        @media (max-width: 767px) {
-          .hero-section {
-            background-image: url(/img/banner2.webp) !important;
+        @media (max-width: 480px) {
+          .banner-bg {
+            background: url(/img/banner2.webp) center !important;
+            background-size: cover !important;
           }
         }
       `}</style>
 
-      <div className="hero-section absolute inset-0 bg-black/30" />
+      <div
+        className="banner-bg absolute inset-0"
+        style={{
+          background: 'url(/img/banner.jpg) center no-repeat',
+          backgroundSize: 'cover',
+        }}
+      />
 
-      <div className="relative z-10 max-w-[920px] mx-auto px-4 py-20 pt-32">
-        <div className="max-w-[500px]">
-          <h1
-            className="text-white text-3xl xs:text-4xl desktop:text-5xl leading-tight mb-4"
-            style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-          >
-            Ищем того, кто <br />
-            хочет зарабатывать <br />
-            до 400 ₽ в час
-          </h1>
-          <p
-            className="text-white text-base desktop:text-lg mb-8 leading-relaxed"
-            style={{ fontFamily: 'YS, Arial, sans-serif' }}
-          >
-            Быстрый выход на первую <br />
-            доставку и ежедневные выплаты<sup>2</sup>
-          </p>
-          <a
-            href={CTA_URL}
-            className="inline-block bg-[#fee334] hover:bg-[#e7cd21] text-[#2b2b2b] font-[family-name:var(--font-ysm)] px-16 py-4 rounded text-base transition-colors"
-            style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-          >
-            Стать курьером
-          </a>
-        </div>
+      <div className="relative z-10 max-w-[920px] mx-auto px-[15px] w-full">
+        <h1
+          className="text-white"
+          style={{
+            fontFamily: 'YS, Arial, sans-serif',
+            fontSize: '48px',
+            lineHeight: '1.1',
+            marginBottom: '0',
+          }}
+        >
+          Ищем того, кто хочет<br />
+          зарабатывать до 400 ₽ в час
+        </h1>
+        <p
+          className="text-white"
+          style={{
+            fontFamily: 'YS, Arial, sans-serif',
+            fontSize: '24px',
+            margin: '30px 0',
+            lineHeight: '1.3',
+          }}
+        >
+          Быстрый выход на первую доставку<br />
+          и ежедневные выплаты<sup style={{ lineHeight: 0, fontSize: '14px' }}>2</sup>
+        </p>
+        <a
+          href={CTA_URL}
+          className="inline-block bg-[#fee334] hover:bg-[#e7cd21] text-[#000] rounded-[5px] transition-colors"
+          style={{
+            fontFamily: 'YS, Arial, sans-serif',
+            fontSize: '18px',
+            padding: '14px 85px',
+            boxSizing: 'border-box',
+          }}
+        >
+          Стать курьером
+        </a>
       </div>
     </section>
   );

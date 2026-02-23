@@ -17,13 +17,13 @@ export default function ClusterPage({ h1, children, faqItems }: ClusterPageProps
       <section className="pt-28 pb-12 desktop:pt-32 desktop:pb-16">
         <div className="max-w-[920px] mx-auto px-4">
           <h1
-            className="text-3xl desktop:text-4xl mb-8 text-[#2b2b2b]"
-            style={{ fontFamily: 'YSb, Arial, sans-serif' }}
+            className="text-[40px] leading-[44px] mb-8 text-[#2b2b2b]"
+            style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             {h1}
           </h1>
           <div
-            className="prose prose-lg max-w-none text-[#555] leading-relaxed space-y-4"
+            className="max-w-none text-[#555] leading-[1.3] space-y-4 text-[16px]"
             style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             {children}
@@ -35,21 +35,21 @@ export default function ClusterPage({ h1, children, faqItems }: ClusterPageProps
       <section className="py-12 bg-[#fee334]">
         <div className="max-w-[920px] mx-auto px-4 text-center">
           <h2
-            className="text-2xl desktop:text-3xl mb-4 text-[#2b2b2b]"
-            style={{ fontFamily: 'YSb, Arial, sans-serif' }}
+            className="text-[40px] leading-[44px] mb-4 text-[#2b2b2b] mt-0"
+            style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             Стать курьером Яндекс Еды
           </h2>
           <p
-            className="text-[#2b2b2b] mb-6 text-base desktop:text-lg"
+            className="text-[#2b2b2b] mb-6 text-[16px] leading-[1.3]"
             style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             Свободный график, ежедневные выплаты, до 400 ₽ в час
           </p>
           <a
             href={CTA_URL}
-            className="inline-block bg-[#2b2b2b] hover:bg-[#444] text-white px-16 py-4 rounded text-base transition-colors"
-            style={{ fontFamily: 'YSm, Arial, sans-serif' }}
+            className="inline-block bg-[#2b2b2b] hover:opacity-80 text-white rounded-[5px] px-[85px] py-[14px] text-[18px] transition-opacity"
+            style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             Оставить заявку
           </a>
@@ -57,9 +57,7 @@ export default function ClusterPage({ h1, children, faqItems }: ClusterPageProps
       </section>
 
       {/* FAQ */}
-      <div className="bg-[#f5f4f2]">
-        <FAQ items={faqItems} title="Частые вопросы" />
-      </div>
+      <FAQ items={faqItems} title="Частые вопросы" />
     </>
   );
 }

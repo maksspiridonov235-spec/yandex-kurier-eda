@@ -37,152 +37,153 @@ export default function Home() {
       <section className="py-12 desktop:py-16">
         <div className="max-w-[920px] mx-auto px-4">
           <h2
-            className="text-3xl desktop:text-4xl mb-8 mt-6"
-            style={{ fontFamily: 'YSb, Arial, sans-serif' }}
+            className="text-[40px] leading-[44px] mb-8 mt-14"
+            style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             Это вам понравится
           </h2>
 
           {/* Wide block — income */}
           <div
-            className="rounded-2xl p-6 desktop:p-8 mb-4 bg-[#fee334] relative overflow-hidden"
+            className="rounded-[15px] p-[30px] mb-[10px] relative overflow-hidden"
             style={{
-              backgroundImage: 'url(/img/400.jpg)',
+              background: '#fee878 url(/img/400.jpg) right bottom no-repeat',
               backgroundSize: 'cover',
-              backgroundPosition: 'right center',
               minHeight: '140px',
             }}
           >
             <h3
-              className="text-2xl desktop:text-3xl text-[#2b2b2b] mb-2"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
+              className="text-[26px] mb-[10px]"
+              style={{ fontFamily: 'YS, Arial, sans-serif' }}
             >
               Доход до 400 ₽ в час
             </h3>
-            <p style={{ fontFamily: 'YS, Arial, sans-serif' }} className="text-[#2b2b2b]">
+            <p style={{ fontFamily: 'YS, Arial, sans-serif' }} className="text-[16px] leading-[1.3]">
               Выплаты каждый день на вашу карту
             </p>
           </div>
 
           {/* Row 1: 3 cards */}
-          <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mb-4">
-            <div className="rounded-2xl p-6 bg-[#edeff1]">
-              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
-                Быстрое подключение к сервису
+          <div className="flex flex-col tablet:flex-row justify-between items-stretch gap-[10px] mb-[10px]">
+            <div className="rounded-[15px] p-[30px] pb-[70px] bg-[#edeff1] tablet:w-[32.6%]">
+              <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Быстрое подключение
               </h3>
-              <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-                Начинайте доставлять заказы уже на следующий день
+              <p className="text-[16px] leading-[1.3] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Начинайте доставлять заказы уже на следующий день после регистрации
               </p>
             </div>
             <div
-              className="rounded-2xl p-6 bg-[#edeff1] relative overflow-hidden"
+              className="rounded-[15px] p-[30px] bg-[#edeff1] relative overflow-hidden tablet:w-[32.6%]"
               style={{
                 backgroundImage: 'url(/img/b3.png)',
-                backgroundSize: 'contain',
+                backgroundSize: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right bottom',
+                paddingBottom: '70px',
               }}
             >
-              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
                 Скидка на еду
               </h3>
-              <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-                Заказывайте еду в ресторанах-партнёрах и Яндекс Лавке для себя и близких
+              <p className="text-[16px] leading-[1.3] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Заказывайте еду в ресторанах-партнёрах и Яндекс Лавке со скидкой
               </p>
             </div>
-            <div className="rounded-2xl p-6 bg-[#edeff1]">
-              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+            <div className="rounded-[15px] p-[30px] pb-[70px] bg-[#edeff1] tablet:w-[32.6%]">
+              <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
                 Удобное расписание
               </h3>
-              <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-                Выходите на доставки, когда захотите, а остальное время посвящайте себе
+              <p className="text-[16px] leading-[1.3] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Выходите на доставки когда захотите, остальное время — ваше
               </p>
             </div>
           </div>
 
           {/* Row 2: bonus + tips + transport */}
-          <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mb-4">
+          <div className="flex flex-col tablet:flex-row justify-between items-stretch gap-[10px] mb-[10px]">
             <div
-              className="rounded-2xl p-6 bg-[#edeff1] relative overflow-hidden"
+              className="rounded-[15px] p-[30px] pb-[70px] bg-[#edeff1] relative overflow-hidden tablet:w-[32.6%]"
               style={{
                 backgroundImage: 'url(/img/b5.png)',
-                backgroundSize: 'contain',
+                backgroundSize: '100%',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center bottom',
+              }}
+            >
+              <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Бонусы за новичков
+              </h3>
+              <p className="text-[16px] leading-[1.3] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                5&nbsp;000 ₽ за каждого нового курьера, которого вы привели
+              </p>
+            </div>
+            <div
+              className="rounded-[15px] p-[30px] bg-[#edeff1] relative overflow-hidden tablet:w-[32.6%]"
+              style={{
+                backgroundImage: 'url(/img/b4.png)',
+                backgroundSize: '100%',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center bottom',
+                paddingBottom: '30px',
+              }}
+            >
+              <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Чаевые
+              </h3>
+              <p className="text-[16px] leading-[1.3] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Все чаевые от пользователей достаются вам полностью, без удержаний
+              </p>
+            </div>
+            <div
+              className="rounded-[15px] p-[30px] pb-[70px] bg-[#edeff1] relative overflow-hidden tablet:w-[32.6%]"
+              style={{
+                backgroundImage: 'url(/img/b6.png)',
+                backgroundSize: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right bottom',
               }}
             >
-              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
-                Бонусы за новичков
+              <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Любой транспорт
               </h3>
-              <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-                Приводите новых курьеров и получайте денежное вознаграждение
-              </p>
-            </div>
-            <div
-              className="rounded-2xl p-6 bg-[#edeff1] relative overflow-hidden"
-              style={{
-                backgroundImage: 'url(/img/b4.png)',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right center',
-              }}
-            >
-              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
-                Чаевые
-              </h3>
-              <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-                Вы получаете полностью все чаевые, которые оставляют вам пользователи
-              </p>
-            </div>
-            <div
-              className="rounded-2xl p-6 bg-[#edeff1] relative overflow-hidden"
-              style={{
-                backgroundImage: 'url(/img/b6.png)',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right center',
-              }}
-            >
-              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
-                Доставляйте на удобном вам транспорте
-              </h3>
-              <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-                Скидки на аренду самокатов и велосипедов у наших партнёров
+              <p className="text-[16px] leading-[1.3] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Скидки на аренду самокатов и велосипедов у партнёров сервиса
               </p>
             </div>
           </div>
 
           {/* Row 3: insurance (wide) + legal */}
-          <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mb-4">
+          <div className="flex flex-col tablet:flex-row justify-between items-stretch gap-[10px] mb-[10px]">
             <div
-              className="rounded-2xl p-6 bg-[#edeff1] tablet:col-span-2 relative overflow-hidden"
+              className="rounded-[15px] p-[30px] bg-[#edeff1] relative overflow-hidden tablet:w-[66.2%]"
               style={{
                 backgroundImage: 'url(/img/b7.png)',
-                backgroundSize: 'contain',
+                backgroundSize: '100%',
                 backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right bottom',
+                backgroundPosition: 'right center',
               }}
             >
-              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
                 Страхование
               </h3>
-              <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-                Одна программа действует во время доставок, другая — после них: в случае травмы или болезни вам положены выплаты<sup>³</sup>
+              <p className="text-[16px] leading-[1.3] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                Одна программа — во время доставок, другая — после них: при травме или болезни вам положены выплаты<sup>³</sup>
               </p>
             </div>
-            <div className="rounded-2xl p-6 bg-[#edeff1]">
-              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+            <div className="rounded-[15px] p-[30px] pb-[70px] bg-[#edeff1] tablet:w-[32.6%]">
+              <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
                 Юридическая поддержка
               </h3>
-              <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-                По 3 бесплатных консультации от специалиста в месяц<sup>⁴</sup>
+              <p className="text-[16px] leading-[1.3] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+                3 бесплатные консультации от специалиста каждый месяц<sup>⁴</sup>
               </p>
             </div>
           </div>
 
           {/* Wide — heavy orders */}
           <div
-            className="rounded-2xl p-6 desktop:p-8 relative overflow-hidden bg-[#edeff1]"
+            className="rounded-[15px] p-[30px] relative overflow-hidden bg-[#edeff1]"
             style={{
               backgroundImage: 'url(/img/b8.webp)',
               backgroundSize: 'contain',
@@ -191,57 +192,58 @@ export default function Home() {
               minHeight: '120px',
             }}
           >
-            <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
-              Доплата за тяжелые заказы
+            <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+              Доплата за тяжёлые заказы
             </h3>
-            <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-              Действует для пеших и велокурьеров, если заказ весит от 10 до 15 кг
+            <p className="text-[16px] leading-[1.3] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
+              Для пеших и велокурьеров — если заказ весит от 10 до 15 кг
             </p>
           </div>
         </div>
       </section>
 
       {/* Auto-couriers advantages */}
-      <section className="py-12 desktop:py-16 bg-[#edeff1]">
+      <section className="py-12 desktop:py-16">
         <div className="max-w-[920px] mx-auto px-4">
           <h2
-            className="text-3xl desktop:text-4xl mb-8"
-            style={{ fontFamily: 'YSb, Arial, sans-serif' }}
+            className="text-[40px] leading-[44px] mb-8"
+            style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             Преимущества курьеров на личном или арендованном транспорте
           </h2>
-          <div className="flex flex-col tablet:flex-row gap-8 items-center mb-8">
-            <div className="tablet:w-1/2">
+          <div className="flex flex-col tablet:flex-row justify-between items-stretch gap-[10px] mb-8">
+            <div className="tablet:w-[48%]">
               <Image
                 src="/img/deliv.webp"
                 alt="Курьер на транспорте"
                 width={400}
                 height={300}
-                className="w-full rounded-2xl"
+                className="w-full rounded-[15px]"
+                style={{ objectFit: 'cover', maxWidth: '65%', width: '100%', height: 'auto' }}
               />
             </div>
-            <div className="tablet:w-1/2 space-y-6">
+            <div className="tablet:w-[48%] space-y-6" style={{ marginLeft: '10px', minWidth: '300px' }}>
               {[
-                { title: 'Приоритет', text: 'Получайте приоритет в передаче заказов' },
-                { title: 'Оперативность', text: 'Успевайте доставлять больше заказов' },
-                { title: 'Выше доход', text: 'Доход велокурьеров больше на 35%' },
+                { title: 'Приоритет', text: 'Получайте приоритет в передаче заказов — больше работы в часы пик' },
+                { title: 'Оперативность', text: 'Доставляйте больше заказов за смену благодаря большему радиусу работы' },
+                { title: 'Выше доход', text: 'Доход велокурьеров выше на 35% по сравнению с пешими' },
               ].map((item, i) => (
                 <div key={i}>
-                  <h3 className="text-xl mb-1 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+                  <h3 className="text-[26px] mb-[10px]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
                     {item.title}
                   </h3>
-                  <p style={{ fontFamily: 'YS, Arial, sans-serif' }} className="text-[#555]">
+                  <p style={{ fontFamily: 'YS, Arial, sans-serif' }} className="text-[16px] leading-[1.3] text-[#555]">
                     {item.text}
                   </p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="text-center">
+          <div className="text-center mt-[50px] mb-[50px]">
             <a
               href={CTA_URL}
-              className="inline-block bg-[#fee334] hover:bg-[#e7cd21] text-[#2b2b2b] px-16 py-4 rounded text-base transition-colors"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
+              className="inline-block bg-[#fee334] hover:bg-[#e7cd21] text-[#000] rounded-[5px] px-[85px] py-[14px] text-[18px] transition-colors"
+              style={{ fontFamily: 'YS, Arial, sans-serif' }}
             >
               Стать курьером
             </a>
@@ -256,14 +258,14 @@ export default function Home() {
       <section className="py-12 desktop:py-16">
         <div className="max-w-[920px] mx-auto px-4">
           <h2
-            className="text-3xl desktop:text-4xl mb-8"
-            style={{ fontFamily: 'YSb, Arial, sans-serif' }}
+            className="text-[40px] leading-[44px] mb-8 mt-14"
+            style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             Как стать курьером
           </h2>
-          <div className="grid grid-cols-2 tablet:grid-cols-4 gap-4 mb-8">
+          <div className="flex flex-wrap justify-between gap-[10px] mb-8">
             {steps.map((step, i) => (
-              <div key={i}>
+              <div key={i} className="w-[49.4%] tablet:w-[23%]" style={{ lineHeight: 0 }}>
                 <Image
                   src={step.img}
                   alt={step.alt}
@@ -274,11 +276,11 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="text-center">
+          <div className="text-center mt-[50px] mb-[50px]">
             <a
               href={CTA_URL}
-              className="inline-block bg-[#2b2b2b] hover:bg-[#444] text-white px-16 py-4 rounded text-base transition-colors"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
+              className="inline-block bg-[#2b2b2b] hover:opacity-80 text-white rounded-[5px] px-[85px] py-[14px] text-[18px] transition-opacity"
+              style={{ fontFamily: 'YS, Arial, sans-serif' }}
             >
               Стать курьером
             </a>
@@ -287,20 +289,20 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <div className="bg-[#f5f4f2]" id="faq">
+      <div id="faq">
         <FAQ items={mainFAQ} title="Остались вопросы?" />
       </div>
 
       {/* Tags */}
-      <section className="py-8 desktop:py-12 border-t border-gray-100">
+      <section className="py-[50px]">
         <div className="max-w-[920px] mx-auto px-4">
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap items-center gap-[6px]">
             {tags.map((tag, i) => (
               <a
                 key={i}
                 href={CTA_URL}
-                className="bg-[#edeff1] hover:bg-[#e0e2e5] text-[#555] text-sm px-4 py-2 rounded-full transition-colors"
-                style={{ fontFamily: 'YS, Arial, sans-serif' }}
+                className="bg-[#fee334] rounded-[30px] px-[12px] py-[7px] text-[13px] text-[#000] hover:opacity-80 transition-opacity"
+                style={{ fontFamily: 'YS, Arial, sans-serif', display: 'inline-block', textAlign: 'center' }}
               >
                 {tag}
               </a>
