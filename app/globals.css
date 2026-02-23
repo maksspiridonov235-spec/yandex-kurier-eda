@@ -14,9 +14,9 @@
   --font-ysb: 'YSb', Arial, sans-serif;
   --font-ysc: 'YSc', Arial, sans-serif;
 
-  --breakpoint-sm: 480px;
-  --breakpoint-md: 767px;
-  --breakpoint-lg: 920px;
+  --breakpoint-xs: 480px;
+  --breakpoint-tablet: 767px;
+  --breakpoint-desktop: 920px;
 }
 
 @font-face {

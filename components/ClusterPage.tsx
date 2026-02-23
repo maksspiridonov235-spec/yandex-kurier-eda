@@ -14,10 +14,10 @@ export default function ClusterPage({ h1, children, faqItems }: ClusterPageProps
   return (
     <>
       {/* Article */}
-      <section className="pt-28 pb-12 lg:pt-32 lg:pb-16">
+      <section className="pt-28 pb-12 desktop:pt-32 desktop:pb-16">
         <div className="max-w-[920px] mx-auto px-4">
           <h1
-            className="text-3xl lg:text-4xl mb-8 text-[#2b2b2b]"
+            className="text-3xl desktop:text-4xl mb-8 text-[#2b2b2b]"
             style={{ fontFamily: 'YSb, Arial, sans-serif' }}
           >
             {h1}
@@ -35,13 +35,13 @@ export default function ClusterPage({ h1, children, faqItems }: ClusterPageProps
       <section className="py-12 bg-[#fee334]">
         <div className="max-w-[920px] mx-auto px-4 text-center">
           <h2
-            className="text-2xl lg:text-3xl mb-4 text-[#2b2b2b]"
+            className="text-2xl desktop:text-3xl mb-4 text-[#2b2b2b]"
             style={{ fontFamily: 'YSb, Arial, sans-serif' }}
           >
             Стать курьером Яндекс Еды
           </h2>
           <p
-            className="text-[#2b2b2b] mb-6 text-base lg:text-lg"
+            className="text-[#2b2b2b] mb-6 text-base desktop:text-lg"
             style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             Свободный график, ежедневные выплаты, до 400 ₽ в час

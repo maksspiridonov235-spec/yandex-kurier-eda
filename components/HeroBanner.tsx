@@ -4,7 +4,7 @@ const CTA_URL =
 export default function HeroBanner() {
   return (
     <section
-      className="relative min-h-[500px] md:min-h-[600px] flex items-center"
+      className="relative min-h-[500px] tablet:min-h-[600px] flex items-center"
       style={{
         backgroundImage: 'url(/img/banner.jpg)',
         backgroundSize: 'cover',
@@ -25,7 +25,7 @@ export default function HeroBanner() {
       <div className="relative z-10 max-w-[920px] mx-auto px-4 py-20 pt-32">
         <div className="max-w-[500px]">
           <h1
-            className="text-white text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4"
+            className="text-white text-3xl xs:text-4xl desktop:text-5xl leading-tight mb-4"
             style={{ fontFamily: 'YSb, Arial, sans-serif' }}
           >
             Ищем того, кто <br />
@@ -33,7 +33,7 @@ export default function HeroBanner() {
             до 400 ₽ в час
           </h1>
           <p
-            className="text-white text-base lg:text-lg mb-8 leading-relaxed"
+            className="text-white text-base desktop:text-lg mb-8 leading-relaxed"
             style={{ fontFamily: 'YS, Arial, sans-serif' }}
           >
             Быстрый выход на первую <br />

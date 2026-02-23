@@ -34,10 +34,10 @@ export default function Home() {
       <HeroBanner />
 
       {/* Benefits section */}
-      <section className="py-12 lg:py-16">
+      <section className="py-12 desktop:py-16">
         <div className="max-w-[920px] mx-auto px-4">
           <h2
-            className="text-3xl lg:text-4xl mb-8 mt-6"
+            className="text-3xl desktop:text-4xl mb-8 mt-6"
             style={{ fontFamily: 'YSb, Arial, sans-serif' }}
           >
             Это вам понравится
@@ -45,7 +45,7 @@ export default function Home() {
 
           {/* Wide block — income */}
           <div
-            className="rounded-2xl p-6 lg:p-8 mb-4 bg-[#fee334] relative overflow-hidden"
+            className="rounded-2xl p-6 desktop:p-8 mb-4 bg-[#fee334] relative overflow-hidden"
             style={{
               backgroundImage: 'url(/img/400.jpg)',
               backgroundSize: 'cover',
@@ -54,7 +54,7 @@ export default function Home() {
             }}
           >
             <h3
-              className="text-2xl lg:text-3xl text-[#2b2b2b] mb-2"
+              className="text-2xl desktop:text-3xl text-[#2b2b2b] mb-2"
               style={{ fontFamily: 'YSb, Arial, sans-serif' }}
             >
               Доход до 400 ₽ в час
@@ -65,9 +65,9 @@ export default function Home() {
           </div>
 
           {/* Row 1: 3 cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mb-4">
             <div className="rounded-2xl p-6 bg-[#edeff1]">
-              <h3 className="text-lg lg:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
                 Быстрое подключение к сервису
               </h3>
               <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
@@ -83,7 +83,7 @@ export default function Home() {
                 backgroundPosition: 'right bottom',
               }}
             >
-              <h3 className="text-lg lg:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
                 Скидка на еду
               </h3>
               <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
@@ -91,7 +91,7 @@ export default function Home() {
               </p>
             </div>
             <div className="rounded-2xl p-6 bg-[#edeff1]">
-              <h3 className="text-lg lg:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
                 Удобное расписание
               </h3>
               <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
@@ -101,7 +101,7 @@ export default function Home() {
           </div>
 
           {/* Row 2: bonus + tips + transport */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mb-4">
             <div
               className="rounded-2xl p-6 bg-[#edeff1] relative overflow-hidden"
               style={{
@@ -111,7 +111,7 @@ export default function Home() {
                 backgroundPosition: 'right bottom',
               }}
             >
-              <h3 className="text-lg lg:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
                 Бонусы за новичков
               </h3>
               <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
@@ -127,7 +127,7 @@ export default function Home() {
                 backgroundPosition: 'right center',
               }}
             >
-              <h3 className="text-lg lg:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
                 Чаевые
               </h3>
               <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
@@ -143,7 +143,7 @@ export default function Home() {
                 backgroundPosition: 'right center',
               }}
             >
-              <h3 className="text-lg lg:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
                 Доставляйте на удобном вам транспорте
               </h3>
               <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
@@ -153,9 +153,9 @@ export default function Home() {
           </div>
 
           {/* Row 3: insurance (wide) + legal */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mb-4">
             <div
-              className="rounded-2xl p-6 bg-[#edeff1] md:col-span-2 relative overflow-hidden"
+              className="rounded-2xl p-6 bg-[#edeff1] tablet:col-span-2 relative overflow-hidden"
               style={{
                 backgroundImage: 'url(/img/b7.png)',
                 backgroundSize: 'contain',
@@ -163,7 +163,7 @@ export default function Home() {
                 backgroundPosition: 'right bottom',
               }}
             >
-              <h3 className="text-lg lg:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
                 Страхование
               </h3>
               <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
@@ -171,7 +171,7 @@ export default function Home() {
               </p>
             </div>
             <div className="rounded-2xl p-6 bg-[#edeff1]">
-              <h3 className="text-lg lg:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+              <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
                 Юридическая поддержка
               </h3>
               <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
@@ -182,7 +182,7 @@ export default function Home() {
 
           {/* Wide — heavy orders */}
           <div
-            className="rounded-2xl p-6 lg:p-8 relative overflow-hidden bg-[#edeff1]"
+            className="rounded-2xl p-6 desktop:p-8 relative overflow-hidden bg-[#edeff1]"
             style={{
               backgroundImage: 'url(/img/b8.webp)',
               backgroundSize: 'contain',
@@ -191,7 +191,7 @@ export default function Home() {
               minHeight: '120px',
             }}
           >
-            <h3 className="text-lg lg:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
+            <h3 className="text-lg desktop:text-xl mb-2 text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>
               Доплата за тяжелые заказы
             </h3>
             <p className="text-sm text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
@@ -202,16 +202,16 @@ export default function Home() {
       </section>
 
       {/* Auto-couriers advantages */}
-      <section className="py-12 lg:py-16 bg-[#edeff1]">
+      <section className="py-12 desktop:py-16 bg-[#edeff1]">
         <div className="max-w-[920px] mx-auto px-4">
           <h2
-            className="text-3xl lg:text-4xl mb-8"
+            className="text-3xl desktop:text-4xl mb-8"
             style={{ fontFamily: 'YSb, Arial, sans-serif' }}
           >
             Преимущества курьеров на личном или арендованном транспорте
           </h2>
-          <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
-            <div className="md:w-1/2">
+          <div className="flex flex-col tablet:flex-row gap-8 items-center mb-8">
+            <div className="tablet:w-1/2">
               <Image
                 src="/img/deliv.webp"
                 alt="Курьер на транспорте"
@@ -220,7 +220,7 @@ export default function Home() {
                 className="w-full rounded-2xl"
               />
             </div>
-            <div className="md:w-1/2 space-y-6">
+            <div className="tablet:w-1/2 space-y-6">
               {[
                 { title: 'Приоритет', text: 'Получайте приоритет в передаче заказов' },
                 { title: 'Оперативность', text: 'Успевайте доставлять больше заказов' },
@@ -253,15 +253,15 @@ export default function Home() {
       <Calculator />
 
       {/* How to become */}
-      <section className="py-12 lg:py-16">
+      <section className="py-12 desktop:py-16">
         <div className="max-w-[920px] mx-auto px-4">
           <h2
-            className="text-3xl lg:text-4xl mb-8"
+            className="text-3xl desktop:text-4xl mb-8"
             style={{ fontFamily: 'YSb, Arial, sans-serif' }}
           >
             Как стать курьером
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-2 tablet:grid-cols-4 gap-4 mb-8">
             {steps.map((step, i) => (
               <div key={i}>
                 <Image
@@ -292,7 +292,7 @@ export default function Home() {
       </div>
 
       {/* Tags */}
-      <section className="py-8 lg:py-12 border-t border-gray-100">
+      <section className="py-8 desktop:py-12 border-t border-gray-100">
         <div className="max-w-[920px] mx-auto px-4">
           <div className="flex flex-wrap gap-3">
             {tags.map((tag, i) => (

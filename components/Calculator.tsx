@@ -40,7 +40,7 @@ export default function Calculator() {
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">
             <h4
-              className="text-sm lg:text-base text-[#2b2b2b]"
+              className="text-sm desktop:text-base text-[#2b2b2b]"
               style={{ fontFamily: 'YSm, Arial, sans-serif' }}
             >
               {label}
@@ -76,23 +76,23 @@ export default function Calculator() {
   );
 
   return (
-    <section className="py-12 lg:py-16 bg-[#f5f4f2]" id="calc">
+    <section className="py-12 desktop:py-16 bg-[#f5f4f2]" id="calc">
       <div className="max-w-[920px] mx-auto px-4">
         <h2
-          className="text-3xl lg:text-4xl mb-8 text-center"
+          className="text-3xl desktop:text-4xl mb-8 text-center"
           style={{ fontFamily: 'YSb, Arial, sans-serif' }}
         >
           Калькулятор дохода
         </h2>
 
         <div
-          className="bg-white rounded-2xl p-6 lg:p-10"
+          className="bg-white rounded-2xl p-6 desktop:p-10"
           style={{ boxShadow: '0 4px 32px rgba(0,0,0,.08)' }}
         >
           {/* Transport select */}
           <div className="mb-8">
             <h3
-              className="text-lg lg:text-xl mb-3"
+              className="text-lg desktop:text-xl mb-3"
               style={{ fontFamily: 'YSm, Arial, sans-serif' }}
             >
               Как будете доставлять?
@@ -100,7 +100,7 @@ export default function Calculator() {
             <select
               value={transport}
               onChange={(e) => setTransport(e.target.value)}
-              className="w-full md:w-auto border border-gray-200 rounded-xl px-5 py-3 text-base bg-white text-[#2b2b2b] cursor-pointer appearance-none pr-10"
+              className="w-full tablet:w-auto border border-gray-200 rounded-xl px-5 py-3 text-base bg-white text-[#2b2b2b] cursor-pointer appearance-none pr-10"
               style={{
                 fontFamily: 'YS, Arial, sans-serif',
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239e9b98' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
@@ -117,7 +117,7 @@ export default function Calculator() {
           {/* Mode info */}
           <div className="mb-8 bg-[#edeff1] rounded-xl p-5">
             <h3
-              className="text-base lg:text-lg mb-1"
+              className="text-base desktop:text-lg mb-1"
               style={{ fontFamily: 'YSm, Arial, sans-serif' }}
             >
               Режим доставки
@@ -137,7 +137,7 @@ export default function Calculator() {
           </div>
 
           {/* Sliders grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10">
+          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-x-10">
             <SliderWithValue
               label="Сколько часов в день планируете работать"
               value={hours}
@@ -171,10 +171,10 @@ export default function Calculator() {
               Возможный доход
             </h3>
             <div
-              className="text-4xl lg:text-5xl text-[#2b2b2b]"
+              className="text-4xl desktop:text-5xl text-[#2b2b2b]"
               style={{ fontFamily: 'YSb, Arial, sans-serif' }}
             >
-              {formatNumber(total)} <span className="text-2xl lg:text-3xl font-normal">₽</span>
+              {formatNumber(total)} <span className="text-2xl desktop:text-3xl font-normal">₽</span>
             </div>
           </div>
 

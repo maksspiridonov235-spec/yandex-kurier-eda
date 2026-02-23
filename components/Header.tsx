@@ -24,14 +24,14 @@ export default function Header() {
       className="fixed top-0 left-0 w-full bg-white shadow-sm"
     >
       <div className="max-w-[920px] mx-auto px-4">
-        <div className="flex items-center justify-between h-[60px] lg:h-[70px]">
+        <div className="flex items-center justify-between h-[60px] desktop:h-[70px]">
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <Image src="/img/logo.svg" alt="Яндекс Еда" width={120} height={36} priority />
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden desktop:flex items-center gap-6">
             <button
               onClick={() => handleAnchor('faq')}
               className="font-[family-name:var(--font-ys)] text-[#2b2b2b] hover:text-[#fee334] transition-colors cursor-pointer bg-transparent border-0 text-base"
@@ -59,7 +59,7 @@ export default function Header() {
           </nav>
 
           {/* Mobile: CTA + burger */}
-          <div className="flex lg:hidden items-center gap-3">
+          <div className="flex desktop:hidden items-center gap-3">
             <a
               href={CTA_URL}
               className="bg-[#fee334] hover:bg-[#e7cd21] text-[#2b2b2b] font-[family-name:var(--font-ysm)] px-4 py-2 rounded text-sm transition-colors"
