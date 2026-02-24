@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import ClusterPage from '@/components/ClusterPage';
-import Calculator from '@/components/Calculator';
 import { calculatorFAQ } from '@/data/faq';
 
 export const metadata: Metadata = {
@@ -10,10 +9,6 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <>
-      <div className="pt-20">
-        <Calculator />
-      </div>
       <ClusterPage h1="Калькулятор дохода курьера Яндекс Еды" faqItems={calculatorFAQ}>
         <p>
           Калькулятор дохода помогает рассчитать потенциальный заработок курьера Яндекс Еды с учётом типа транспорта, количества рабочих часов и дней, а также бонусов за привлечение новых курьеров.
@@ -61,6 +56,5 @@ export default function Page() {
           Для максимального заработка рекомендуем работать в часы пик (12:00–14:00 и 18:00–21:00), выбирать транспорт с более высокой ставкой и активно привлекать знакомых — каждый новый курьер приносит вам 5 000 ₽.
         </p>
       </ClusterPage>
-    </>
   );
 }

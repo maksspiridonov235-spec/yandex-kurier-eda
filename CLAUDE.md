@@ -31,7 +31,7 @@ components/
   HeroBanner.tsx          — hero секция с фоновым изображением
   Calculator.tsx          — калькулятор дохода (use client, range inputs)
   FAQ.tsx                 — аккордеон (use client, useState)
-  ClusterPage.tsx         — шаблон для кластерных страниц (статья + CTA + FAQ)
+  ClusterPage.tsx         — шаблон для кластерных страниц (статья + Калькулятор + CTA + FAQ)
 data/
   faq.ts                  — все FAQ массивы (mainFAQ, ageFAQ, earningsFAQ и др.)
   pages.ts                — метаданные кластерных страниц
@@ -42,30 +42,36 @@ public/
 ```
 
 ## Цветовая схема
-| Переменная | Hex | Использование |
-|---|---|---|
-| `#fee334` | жёлтый | primary CTA, акценты |
-| `#e7cd21` | жёлтый hover | hover состояние кнопок |
-| `#2b2b2b` | тёмный | основной текст, тёмные кнопки |
-| `#edeff1` | светло-серый | фон карточек |
-| `#f5f4f2` | светло-серый | фон калькулятора и FAQ |
-| `#9e9b98` | серый | вторичный текст, сноски |
-| `#333` | тёмный | фон футера |
+| Hex | Использование |
+|---|---|
+| `#fee334` | primary CTA кнопки, теги, hero-блок, акценты |
+| `#fee878` | wide-блок "Доход до 400 ₽" на главной |
+| `#fce000` | трек слайдера в калькуляторе |
+| `#e7cd21` | hover жёлтых кнопок |
+| `#2b2b2b` | основной текст, тёмные кнопки |
+| `#edeff1` | фон карточек преимуществ |
+| `#f1f0ed` | фон блока результата в калькуляторе |
+| `#f5f4f2` | фон select в калькуляторе |
+| `#9e9b98` | вторичный текст, сноски |
+| `#555` | текст параграфов в карточках |
+| `#333` | фон футера |
 
 ## Шрифты Яндекса
 ```css
-font-family: 'YS'  — text-regular.woff   (основной текст)
-font-family: 'YSm' — text-medium.woff    (заголовки h3, подписи)
-font-family: 'YSb' — text-bold.woff      (h1, h2, жирный текст)
+font-family: 'YS'  — text-regular.woff   (основной текст, большинство элементов)
+font-family: 'YSm' — text-medium.woff    (подписи, метки)
+font-family: 'YSb' — text-bold.woff      (жирный акцентный текст)
 font-family: 'YSc' — display-regular.woff (display заголовки)
 ```
-В inline стилях используй: `style={{ fontFamily: 'YSb, Arial, sans-serif' }}`
+В inline стилях используй: `style={{ fontFamily: 'YS, Arial, sans-serif' }}`
+Основной шрифт для h1/h2/h3 — **YS** (не YSb), как в оригинальном проекте.
 
 ## Брейкпоинты (кастомные в @theme)
-- `sm`: 480px
-- `md`: 767px
-- `lg`: 920px
-- Контейнер: `max-w-[920px] mx-auto px-4`
+- `xs`: 480px
+- `tablet`: 767px
+- `desktop`: 920px
+- Контейнер: `max-w-[920px] mx-auto px-[15px]`
+- **Никогда не используй** стандартные `sm:`, `md:`, `lg:` — они конфликтуют с Tailwind v4
 
 ## CTA ссылка (не менять!)
 ```
@@ -96,9 +102,14 @@ npm run build  # проверка сборки
 ## Важные детали
 - `'use client'` нужен для: Header, Calculator, FAQ (используют useState)
 - Изображения через `<Image>` из `next/image` (не через `<img>`)
-- Header имеет `z-index: 999999`, поэтому у страниц с контентом нужен `pt-20` или `pt-28`
-- Страница `/kalkulator` — исключение: сначала рендерит `<Calculator>`, потом `<ClusterPage>`
+- Header имеет `z-index: 999999`, поэтому у страниц с контентом нужен `pt-28` (ClusterPage уже имеет его)
+- `ClusterPage` автоматически включает: статья → `<Calculator />` → CTA-блок → `<FAQ />`
+- Страница `/kalkulator` использует ClusterPage как и все остальные (без дублирования калькулятора)
 - FAQ через `dangerouslySetInnerHTML` для HTML-ответов (жирный текст, переносы строк)
+- Карточки преимуществ используют Flexbox с `justify-between`, ширины `.block` = `32.6%`, `.block.w75` = `66.2%`
+- Кнопки CTA: жёлтые `bg-[#fee334]`, тёмные `bg-[#2b2b2b]`, скругление `rounded-[5px]`, паддинг `px-[85px] py-[14px]`
+- Теги на главной: `bg-[#fee334] rounded-[30px]` (жёлтый фон, не серый)
+- HeroBanner: мобильный фон переключается через CSS-класс `.banner-bg` и `@media (max-width: 480px)`
 
 ## Figma MCP
 

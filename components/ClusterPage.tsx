@@ -1,5 +1,6 @@
 import FAQ from '@/components/FAQ';
 import { FAQItem } from '@/components/FAQ';
+import Calculator from '@/components/Calculator';
 
 const CTA_URL =
   'https://reg.eda.yandex.ru/?advertisement_campaign=forms_for_agents&user_invite_code=fca82eaee048472d874ca86f874c62fe&utm_content=blank';
@@ -30,6 +31,9 @@ export default function ClusterPage({ h1, children, faqItems }: ClusterPageProps
           </div>
         </div>
       </section>
+
+      {/* Calculator */}
+      <Calculator />
 
       {/* CTA block */}
       <section className="py-12 bg-[#fee334]">
