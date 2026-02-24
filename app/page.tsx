@@ -1,583 +1,573 @@
 import Image from 'next/image';
 import Calculator from '@/components/Calculator';
-import FAQ from '@/components/FAQ';
-import { mainFAQ } from '@/data/faq';
 
 const CTA_URL =
   'https://reg.eda.yandex.ru/?advertisement_campaign=forms_for_agents&user_invite_code=fca82eaee048472d874ca86f874c62fe&utm_content=blank';
 
-const comparisonRows = [
-  { label: 'Гибкий график работы', yandex: true, others: true },
-  { label: 'Количество заказов в день', yandex: 'Неограниченно', others: 'До 10' },
-  { label: 'Ежедневные выплаты', yandex: true, others: false },
-  { label: 'Бонусы за новых курьеров', yandex: true, others: false },
-  { label: 'Страхование курьера', yandex: true, others: false },
-  { label: 'Юридическая поддержка', yandex: true, others: false },
-];
+/* ─── Shared styles ─── */
+const S = {
+  section: (bg: string): React.CSSProperties => ({
+    background: bg,
+    padding: '112px 64px',
+  }),
+  container: (): React.CSSProperties => ({
+    maxWidth: '1312px',
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '80px',
+  }),
+  tagline: (): React.CSSProperties => ({
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '16px',
+    fontWeight: 600,
+    color: '#020807',
+    lineHeight: '1.5',
+  }),
+  h1: (): React.CSSProperties => ({
+    fontFamily: 'Urbanist, sans-serif',
+    fontSize: '72px',
+    fontWeight: 500,
+    color: '#020807',
+    lineHeight: '1.2',
+    letterSpacing: '-0.72px',
+    textAlign: 'center',
+  }),
+  h2: (align: 'center' | 'left' = 'center'): React.CSSProperties => ({
+    fontFamily: 'Urbanist, sans-serif',
+    fontSize: '52px',
+    fontWeight: 500,
+    color: '#020807',
+    lineHeight: '1.2',
+    letterSpacing: '-0.52px',
+    textAlign: align,
+  }),
+  h4: (): React.CSSProperties => ({
+    fontFamily: 'Urbanist, sans-serif',
+    fontSize: '36px',
+    fontWeight: 500,
+    color: '#020807',
+    lineHeight: '1.3',
+    letterSpacing: '-0.36px',
+  }),
+  h5: (): React.CSSProperties => ({
+    fontFamily: 'Urbanist, sans-serif',
+    fontSize: '28px',
+    fontWeight: 500,
+    color: '#020807',
+    lineHeight: '1.4',
+    letterSpacing: '-0.28px',
+  }),
+  h6: (): React.CSSProperties => ({
+    fontFamily: 'Urbanist, sans-serif',
+    fontSize: '22px',
+    fontWeight: 500,
+    color: '#020807',
+    lineHeight: '1.4',
+    letterSpacing: '-0.22px',
+  }),
+  textMd: (align: 'center' | 'left' = 'center'): React.CSSProperties => ({
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '18px',
+    fontWeight: 400,
+    color: '#020807',
+    lineHeight: '1.5',
+    textAlign: align,
+  }),
+  textReg: (): React.CSSProperties => ({
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '16px',
+    fontWeight: 400,
+    color: '#020807',
+    lineHeight: '1.5',
+  }),
+  btnPrimary: (): React.CSSProperties => ({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '16px',
+    fontWeight: 500,
+    color: '#020807',
+    background: '#FFCC00',
+    border: '1px solid #FFCC00',
+    borderRadius: '6px',
+    padding: '6px 12px',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    lineHeight: '1.5',
+  }),
+  btnSecondary: (): React.CSSProperties => ({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '16px',
+    fontWeight: 500,
+    color: '#020807',
+    background: 'transparent',
+    border: '1px solid rgba(2,8,7,0.15)',
+    borderRadius: '6px',
+    padding: '6px 12px',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    lineHeight: '1.5',
+  }),
+  btnLink: (): React.CSSProperties => ({
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '16px',
+    fontWeight: 500,
+    color: '#020807',
+    background: 'transparent',
+    border: 'none',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    padding: 0,
+    lineHeight: '1.5',
+  }),
+  card: (): React.CSSProperties => ({
+    border: '1px solid rgba(2,8,7,0.15)',
+    borderRadius: '8px',
+    background: '#F2F2F2',
+    overflow: 'hidden',
+  }),
+};
 
-const tags = [
-  'подработка курьером',
-  'работа пешим курьером',
-  'работа курьером с частичной занятостью',
-  'работа курьером для студентов',
-  'подработка курьером в выходные',
-  'работа курьером без опыта работы',
-  'работа курьером с ежедневными выплатами',
-  'работа курьером для мужчин',
-  'работа курьером на велосипеде по доставке еды',
-  'работа курьером со свободным графиком',
-];
+/* ─── Section Title component helper ─── */
+function SectionTitle({ tagline, heading, text, align = 'center' }: {
+  tagline?: string;
+  heading: string;
+  text?: string;
+  align?: 'center' | 'left';
+}) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'center' ? 'center' : 'flex-start', gap: '16px' }}>
+      {tagline && <span style={S.tagline()}>{tagline}</span>}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'center' ? 'center' : 'flex-start', gap: '24px', width: '100%' }}>
+        <h2 style={S.h2(align)}>{heading}</h2>
+        {text && <p style={S.textMd(align)}>{text}</p>}
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <>
-      {/* ── HERO ── */}
-      <section className="pt-[64px]">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="flex flex-col desktop:flex-row items-center gap-12 py-20 desktop:py-28">
-            {/* Left */}
-            <div className="flex-1 max-w-[600px]">
-              <h1
-                className="text-[40px] desktop:text-[56px] leading-[1.1] mb-6 text-[#2b2b2b]"
-                style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-              >
-                Яндекс Курьер — регистрация
-              </h1>
-              <p
-                className="text-[18px] leading-[1.6] text-[#555] mb-8"
-                style={{ fontFamily: 'YS, Arial, sans-serif' }}
-              >
-                Официальная платформа для регистрации и найма курьеров по всей России
+      {/* ── HEADER / HERO (1:837) ── */}
+      {/* bg white, padding 112px 64px, center layout */}
+      <section style={{ ...S.section('#FFFFFF'), paddingTop: `calc(112px + 72px)` }}>
+        <div style={{ ...S.container(), alignItems: 'center' }}>
+          {/* Content: h1 + text + buttons */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', width: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px', width: '100%' }}>
+              <h1 style={S.h1()}>Яндекс курьер регистрация</h1>
+              <p style={S.textMd('center')}>
+                Официальная платформа для регистрации и найма курьеров по всей России. Подключитесь напрямую и начните зарабатывать уже сегодня.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <a
-                  href={CTA_URL}
-                  className="inline-block bg-[#fee334] hover:bg-[#e7cd21] text-[#000] rounded-[6px] px-8 py-4 text-[18px] transition-colors font-medium"
-                  style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-                >
-                  Регистрация
-                </a>
-                <a
-                  href="#how"
-                  className="inline-block border border-[rgba(2,8,7,0.2)] text-[#2b2b2b] hover:bg-[#f5f4f2] rounded-[6px] px-8 py-4 text-[18px] transition-colors"
-                  style={{ fontFamily: 'YS, Arial, sans-serif' }}
-                >
-                  Подробнее
-                </a>
-              </div>
             </div>
-            {/* Right – hero image */}
-            <div className="flex-1 w-full max-w-[656px]">
-              <Image
-                src="/img/figma/hero-main.png"
-                alt="Курьер Яндекс Еды"
-                width={1312}
-                height={738}
-                className="w-full rounded-[12px] object-cover"
-                priority
-              />
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <a href={CTA_URL} style={S.btnPrimary()}>Зарегистрироваться</a>
+              <a href="#how" style={S.btnSecondary()}>Подробнее</a>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── TWO-COLUMN: image left + content right ── */}
-      <section className="py-[112px] bg-[#f2f2f2]">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="flex flex-col desktop:flex-row items-center gap-16">
-            {/* Image */}
-            <div className="flex-1 w-full max-w-[600px]">
-              <Image
-                src="/img/figma/layout-220-img.png"
-                alt="Работа курьером"
-                width={616}
-                height={640}
-                className="w-full rounded-[12px] object-cover"
-              />
-            </div>
-            {/* Content */}
-            <div className="flex-1">
-              <h2
-                className="text-[40px] desktop:text-[52px] leading-[1.2] mb-6 text-[#2b2b2b]"
-                style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-              >
-                Зарабатывайте на своих условиях
-              </h2>
-              <p
-                className="text-[18px] leading-[1.6] text-[#555] mb-8"
-                style={{ fontFamily: 'YS, Arial, sans-serif' }}
-              >
-                Гибкий график, быстрое подключение и ежедневные выплаты — всё, что нужно для комфортной работы курьером в Яндекс Еде.
-              </p>
-              <ul className="space-y-4">
-                {[
-                  'Начните уже завтра — регистрация занимает несколько минут',
-                  'Работайте когда удобно — никаких фиксированных смен',
-                  'Получайте выплаты каждый день на вашу карту',
-                  'До 400 ₽ в час плюс чаевые от клиентов',
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="shrink-0 w-6 h-6 rounded-full bg-[#fee334] flex items-center justify-center text-[12px] font-bold mt-0.5">✓</span>
-                    <span
-                      className="text-[16px] leading-[1.5] text-[#2b2b2b]"
-                      style={{ fontFamily: 'YS, Arial, sans-serif' }}
-                    >
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8">
-                <a
-                  href={CTA_URL}
-                  className="inline-block bg-[#fee334] hover:bg-[#e7cd21] text-[#000] rounded-[6px] px-8 py-4 text-[18px] transition-colors"
-                  style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-                >
-                  Стать курьером
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SERVICES / WHAT WE OFFER (3 cards) ── */}
-      <section className="py-[112px] bg-[#f2f2f2]">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          {/* Section title */}
-          <div className="text-center mb-16">
-            <span
-              className="text-[16px] font-semibold text-[#2b2b2b] uppercase tracking-wide mb-4 block"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-            >
-              Услуги
-            </span>
-            <h2
-              className="text-[40px] desktop:text-[52px] leading-[1.2] text-[#2b2b2b] mb-4"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-            >
-              Что предлагает Яндекс Курьер
-            </h2>
-            <p
-              className="text-[18px] text-[#555] max-w-[600px] mx-auto"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Регистрация, найм и поддержка для всех
-            </p>
-          </div>
-          {/* Cards */}
-          <div className="flex flex-col desktop:flex-row gap-8">
-            {[
-              {
-                tag: 'Регистрация',
-                h: 'Быстрое подключение к платформе',
-                p: 'Заполните анкету и начните работать',
-                cta: 'Зарегистрироваться',
-              },
-              {
-                tag: 'Доход',
-                h: 'До 400 ₽ в час и ежедневные выплаты',
-                p: 'Стабильный заработок без задержек',
-                cta: 'Узнать больше',
-              },
-              {
-                tag: 'Поддержка',
-                h: 'Помощь 24/7 и страхование',
-                p: 'Поддержка на каждом этапе работы',
-                cta: 'Подробнее',
-              },
-            ].map((card, i) => (
-              <div
-                key={i}
-                className="flex-1 rounded-[8px] overflow-hidden border border-[rgba(2,8,7,0.15)] bg-[#f2f2f2]"
-              >
-                <div className="relative w-full h-[233px] bg-[#edeff1]">
-                  <Image
-                    src="/img/figma/service-card-1.png"
-                    alt={card.h}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="bg-white p-8">
-                  <span
-                    className="text-[14px] font-semibold text-[#2b2b2b] uppercase tracking-wide mb-3 block"
-                    style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-                  >
-                    {card.tag}
-                  </span>
-                  <h3
-                    className="text-[22px] leading-[1.3] text-[#2b2b2b] mb-3"
-                    style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-                  >
-                    {card.h}
-                  </h3>
-                  <p
-                    className="text-[16px] leading-[1.5] text-[#555] mb-6"
-                    style={{ fontFamily: 'YS, Arial, sans-serif' }}
-                  >
-                    {card.p}
-                  </p>
-                  <a
-                    href={CTA_URL}
-                    className="text-[16px] font-semibold text-[#2b2b2b] hover:opacity-70 transition-opacity underline underline-offset-2"
-                    style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-                  >
-                    {card.cta} →
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── HOW TO START (steps) ── */}
-      <section id="how" className="py-[112px] bg-white">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="text-center mb-16">
-            <span
-              className="text-[16px] font-semibold text-[#2b2b2b] uppercase tracking-wide mb-4 block"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-            >
-              Процесс
-            </span>
-            <h2
-              className="text-[40px] desktop:text-[52px] leading-[1.2] text-[#2b2b2b] mb-4"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-            >
-              Как начать работать курьером в Яндекс
-            </h2>
-            <p
-              className="text-[18px] text-[#555]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Три простых шага до первой доставки
-            </p>
-          </div>
-          <div className="flex flex-col desktop:flex-row gap-8">
-            {[
-              { n: '01', h: 'Заполните анкету', p: 'Зарегистрируйтесь на сайте — это займёт не более 5 минут. Нужны только паспорт и телефон.' },
-              { n: '02', h: 'Пройдите проверку', p: 'Мы проверим данные и подтвердим ваш аккаунт в течение 1 рабочего дня.' },
-              { n: '03', h: 'Начните доставлять', p: 'Выходите на первую доставку уже на следующий день. Приложение поможет найти заказы рядом.' },
-            ].map((step, i) => (
-              <div key={i} className="flex-1 p-8 border border-[rgba(2,8,7,0.1)] rounded-[8px] bg-[#f5f4f2]">
-                <span
-                  className="text-[48px] font-bold text-[#fee334] leading-none mb-4 block"
-                  style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-                >
-                  {step.n}
-                </span>
-                <h3
-                  className="text-[24px] leading-[1.3] text-[#2b2b2b] mb-3"
-                  style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-                >
-                  {step.h}
-                </h3>
-                <p
-                  className="text-[16px] leading-[1.5] text-[#555]"
-                  style={{ fontFamily: 'YS, Arial, sans-serif' }}
-                >
-                  {step.p}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <a
-              href={CTA_URL}
-              className="inline-block bg-[#fee334] hover:bg-[#e7cd21] text-[#000] rounded-[6px] px-[85px] py-[14px] text-[18px] transition-colors"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-            >
-              Начать работу
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── TWO-COLUMN: content left + image right ── */}
-      <section className="py-[112px] bg-[#f2f2f2]">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="flex flex-col desktop:flex-row items-center gap-16">
-            {/* Content */}
-            <div className="flex-1">
-              <h2
-                className="text-[40px] desktop:text-[52px] leading-[1.2] mb-6 text-[#2b2b2b]"
-                style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-              >
-                Работайте на любом транспорте
-              </h2>
-              <p
-                className="text-[18px] leading-[1.6] text-[#555] mb-8"
-                style={{ fontFamily: 'YS, Arial, sans-serif' }}
-              >
-                Выбирайте удобный способ передвижения и зарабатывайте больше.
-              </p>
-              <div className="space-y-6">
-                {[
-                  { icon: '🚗', title: 'Автомобиль', rate: '472 ₽/час', desc: 'Максимальный доход — крупные заказы и большой радиус доставки' },
-                  { icon: '🚲', title: 'Велосипед', rate: '412 ₽/час', desc: 'Быстрая доставка в центре города без пробок' },
-                  { icon: '🚶', title: 'Пеший', rate: '320 ₽/час', desc: 'Доставка в пешей доступности, не нужен транспорт' },
-                ].map((t, i) => (
-                  <div key={i} className="flex items-start gap-4 p-4 bg-white rounded-[8px] border border-[rgba(2,8,7,0.1)]">
-                    <span className="text-[32px] shrink-0">{t.icon}</span>
-                    <div>
-                      <div className="flex items-center gap-3 mb-1">
-                        <span className="text-[18px] font-semibold text-[#2b2b2b]" style={{ fontFamily: 'YSb, Arial, sans-serif' }}>{t.title}</span>
-                        <span className="bg-[#fee334] text-[#000] text-[13px] font-medium px-2 py-0.5 rounded-full" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>{t.rate}</span>
-                      </div>
-                      <p className="text-[15px] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>{t.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* Image */}
-            <div className="flex-1 w-full max-w-[600px]">
-              <Image
-                src="/img/figma/layout-220-img.png"
-                alt="Курьер на транспорте"
-                width={616}
-                height={640}
-                className="w-full rounded-[12px] object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── VARIANTS / FORMATS (masonry cards) ── */}
-      <section className="py-[112px] bg-white">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="text-center mb-16">
-            <span
-              className="text-[16px] font-semibold text-[#2b2b2b] uppercase tracking-wide mb-4 block"
-              style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-            >
-              Варианты
-            </span>
-            <h2
-              className="text-[40px] desktop:text-[52px] leading-[1.2] text-[#2b2b2b] mb-4"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-            >
-              Выберите свой путь работы
-            </h2>
-            <p
-              className="text-[18px] text-[#555]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Каждый формат имеет свои преимущества
-            </p>
-          </div>
-          <div className="flex flex-col desktop:flex-row gap-8">
-            {[
-              [
-                { h: 'Полная занятость', p: 'Работайте 40+ часов в неделю и зарабатывайте максимум. Подходит тем, кто ищет стабильный основной доход.', tall: true },
-                { h: 'Частичная занятость', p: 'Несколько часов в день или только в выходные — идеально для подработки.', tall: false },
-              ],
-              [
-                { h: 'Студентам', p: 'Удобно совмещать с учёбой: выходите на смену между парами или по вечерам.', tall: false },
-                { h: 'Самозанятым', p: 'Оформите статус самозанятого и работайте официально с налоговой отчётностью через приложение.', tall: true },
-              ],
-              [
-                { h: 'Командная работа', p: 'Привлекайте знакомых — получайте 5 000 ₽ за каждого нового курьера.', tall: true },
-                { h: 'Сезонная работа', p: 'Выходите в пиковые сезоны — праздники, лето, высокий спрос.', tall: false },
-              ],
-            ].map((col, ci) => (
-              <div key={ci} className="flex-1 flex flex-col gap-8">
-                {col.map((card, i) => (
-                  <div
-                    key={i}
-                    className={`border border-[rgba(2,8,7,0.15)] rounded-[8px] bg-white p-8 ${card.tall ? 'flex-[2]' : 'flex-1'}`}
-                  >
-                    <h3
-                      className="text-[22px] leading-[1.3] text-[#2b2b2b] mb-3"
-                      style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-                    >
-                      {card.h}
-                    </h3>
-                    <p
-                      className="text-[16px] leading-[1.5] text-[#555]"
-                      style={{ fontFamily: 'YS, Arial, sans-serif' }}
-                    >
-                      {card.p}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA BLOCK ── */}
-      <section className="py-[112px] bg-[#f2f2f2]">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="bg-white rounded-[8px] p-12 text-center">
-            <h2
-              className="text-[40px] desktop:text-[52px] leading-[1.2] text-[#2b2b2b] mb-6"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-            >
-              Начните зарабатывать сегодня
-            </h2>
-            <p
-              className="text-[18px] text-[#555] mb-8 max-w-[500px] mx-auto"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Подключитесь к официальной платформе Яндекс Курьер прямо сейчас
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href={CTA_URL}
-                className="inline-block bg-[#fee334] hover:bg-[#e7cd21] text-[#000] rounded-[6px] px-[85px] py-[14px] text-[18px] transition-colors"
-                style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-              >
-                Зарегистрироваться
-              </a>
-              <a
-                href="#how"
-                className="inline-block border border-[rgba(2,8,7,0.15)] text-[#2b2b2b] hover:bg-[#f5f4f2] rounded-[6px] px-[85px] py-[14px] text-[18px] transition-colors"
-                style={{ fontFamily: 'YS, Arial, sans-serif' }}
-              >
-                Подробнее
-              </a>
-            </div>
-          </div>
-          {/* CTA background image below */}
-          <div className="mt-8 rounded-[8px] overflow-hidden">
+          {/* Hero image */}
+          <div style={{ width: '100%', height: '720px', borderRadius: '8px', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
             <Image
-              src="/img/figma/cta-bg.png"
-              alt="Курьер"
-              width={1312}
-              height={500}
-              className="w-full object-cover max-h-[400px]"
+              src="/img/figma/hero-main.png"
+              alt="Яндекс курьер"
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
             />
           </div>
         </div>
       </section>
 
-      {/* ── CALCULATOR ── */}
+      {/* ── LAYOUT 220 (1:847): image left + list right ── */}
+      {/* bg #F2F2F2, padding 112px 64px */}
+      <section style={S.section('#F2F2F2')}>
+        <div style={{ maxWidth: '1312px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', gap: '80px', alignItems: 'stretch' }}>
+            {/* Image */}
+            <div style={{ flex: 1, height: '640px', borderRadius: '8px', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
+              <Image
+                src="/img/figma/layout-220-img.png"
+                alt="Работа курьером"
+                fill
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+            {/* Content */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              {/* List items */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '8px 0' }}>
+                {/* Row 1 */}
+                <div style={{ display: 'flex', gap: '24px' }}>
+                  {[
+                    { icon: '📋', h: 'Быстрая регистрация', p: 'Пройдите простую регистрацию на официальном сайте Яндекс Курьер за несколько минут.' },
+                    { icon: '🔗', h: 'Прямое подключение', p: 'Подключитесь к сервису напрямую без посредников и лишних условий.' },
+                  ].map((item) => (
+                    <div key={item.h} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <div style={{ width: '48px', height: '48px', background: '#FFCC00', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', flexShrink: 0 }}>
+                        {item.icon}
+                      </div>
+                      <h3 style={S.h5()}>{item.h}</h3>
+                      <p style={S.textReg()}>{item.p}</p>
+                    </div>
+                  ))}
+                </div>
+                {/* Row 2 */}
+                <div style={{ display: 'flex', gap: '24px' }}>
+                  {[
+                    { icon: '📊', h: 'Личный кабинет', p: 'Управляйте заказами и доходом через удобный личный кабинет с быстрым входом.' },
+                    { icon: '🚚', h: 'Найм курьеров', p: 'Работодатели могут нанимать курьеров через платформу Яндекс с полной поддержкой.' },
+                  ].map((item) => (
+                    <div key={item.h} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <div style={{ width: '48px', height: '48px', background: '#FFCC00', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', flexShrink: 0 }}>
+                        {item.icon}
+                      </div>
+                      <h3 style={S.h5()}>{item.h}</h3>
+                      <p style={S.textReg()}>{item.p}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Button */}
+              <div>
+                <a href={CTA_URL} style={S.btnSecondary()}>Начать</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── LAYOUT 369 (1:883): Преимущества — 3 cards ── */}
+      {/* bg #F2F2F2 */}
+      <section style={S.section('#F2F2F2')}>
+        <div style={{ ...S.container(), alignItems: 'center' }}>
+          <SectionTitle
+            tagline="Преимущества"
+            heading="Почему выбирают Яндекс Курьер"
+            text="Официальная платформа с прозрачными условиями работы для всех."
+          />
+          {/* Cards row */}
+          <div style={{ display: 'flex', gap: '32px', width: '100%', alignItems: 'stretch' }}>
+            {/* Big card left (640px fixed in figma, flex in our layout) */}
+            <div style={{ ...S.card(), flex: '0 0 auto', width: '640px', display: 'flex', flexDirection: 'row' }}>
+              <div style={{ flex: 1, background: '#FFFFFF', padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <span style={S.tagline()}>Надёжность</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <h3 style={S.h5()}>Поддержка от крупной компании Яндекс</h3>
+                    <p style={S.textReg()}>Гарантированная защита интересов курьеров и клиентов.</p>
+                  </div>
+                </div>
+                <a href={CTA_URL} style={S.btnLink()}>Подробнее →</a>
+              </div>
+              <div style={{ width: '233px', flexShrink: 0, position: 'relative' }}>
+                <Image src="/img/figma/card-big.png" alt="Надёжность" fill style={{ objectFit: 'cover' }} />
+              </div>
+            </div>
+            {/* Right column: 2 cards */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              {[
+                { tag: 'Гибкость', h: 'Выбирайте удобный формат работы', p: 'Работайте пешком, на авто, велосипеде или как самозанятый.' },
+                { tag: 'Доход', h: 'Прозрачный расчёт заработка', p: 'Используйте калькулятор для расчёта потенциального дохода в любой момент.' },
+              ].map((card) => (
+                <div key={card.tag} style={{ ...S.card(), flex: 1 }}>
+                  <div style={{ height: '171px', position: 'relative' }}>
+                    <Image src="/img/figma/service-card-1.png" alt={card.h} fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div style={{ background: '#FFFFFF', padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <span style={S.tagline()}>{card.tag}</span>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <h3 style={S.h5()}>{card.h}</h3>
+                        <p style={S.textReg()}>{card.p}</p>
+                      </div>
+                    </div>
+                    <a href={CTA_URL} style={S.btnLink()}>Подробнее →</a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── LAYOUT 407 (1:926): Процесс — tabs with steps ── */}
+      {/* bg white */}
+      <section id="how" style={S.section('#FFFFFF')}>
+        <div style={{ ...S.container(), alignItems: 'center' }}>
+          <SectionTitle
+            tagline="Процесс"
+            heading="Как начать работать курьером в Яндекс"
+            text="Три простых шага от регистрации до первого заказа. Всё делается через официальный сайт Яндекс Курьер."
+          />
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '64px' }}>
+            {/* Steps image */}
+            <div style={{ width: '100%', height: '400px', borderRadius: '8px', overflow: 'hidden', position: 'relative' }}>
+              <Image src="/img/figma/steps-img.png" alt="Шаги регистрации" fill style={{ objectFit: 'cover' }} />
+            </div>
+            {/* Tabs */}
+            <div style={{ display: 'flex', width: '100%' }}>
+              {[
+                { h: 'Зарегистрируйтесь онлайн', p: 'Заполните форму на сайте Яндекс Курьер и пройдите верификацию документов за несколько минут.', active: true },
+                { h: 'Выберите формат работы', p: 'Определитесь с удобным способом доставки: пешком, на авто, велосипеде или как самозанятый.', active: false },
+                { h: 'Начните принимать заказы', p: 'Получите доступ к личному кабинету и начните выполнять заказы с первого дня.', active: false },
+              ].map((tab, i) => (
+                <div key={i} style={{
+                  flex: 1, padding: '16px 24px',
+                  borderTop: tab.active ? '1px solid #020807' : '1px solid rgba(2,8,7,0.1)',
+                  display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center', textAlign: 'center',
+                }}>
+                  <h3 style={{ ...S.h6(), textAlign: 'center' }}>{tab.h}</h3>
+                  <p style={{ ...S.textReg(), textAlign: 'center' }}>{tab.p}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── LAYOUT 19 (1:949): content left + image right ── */}
+      {/* bg white */}
+      <section style={S.section('#FFFFFF')}>
+        <div style={{ maxWidth: '1312px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', gap: '80px', alignItems: 'stretch' }}>
+            {/* Content */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                {/* Section title */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <span style={S.tagline()}>Калькулятор</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    <h2 style={S.h2('left')}>Рассчитайте свой потенциальный доход</h2>
+                    <p style={S.textMd('left')}>
+                      Используйте интерактивный калькулятор для расчёта заработка в зависимости от выбранного формата работы.
+                    </p>
+                  </div>
+                </div>
+                {/* List */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {['Работа пешком', 'Доставка на автомобиле', 'Доставка на велосипеде'].map((item) => (
+                    <div key={item} style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#020807', flexShrink: 0 }} />
+                      <p style={S.textReg()}>{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <a href={CTA_URL} style={S.btnSecondary()}>Подробнее</a>
+              </div>
+            </div>
+            {/* Image */}
+            <div style={{ flex: 1, height: '640px', borderRadius: '8px', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
+              <Image
+                src="/img/figma/layout-220-img.png"
+                alt="Калькулятор дохода"
+                fill
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── LAYOUT 395 (1:970): Services — 3 cards ── */}
+      {/* bg #F2F2F2 */}
+      <section style={S.section('#F2F2F2')}>
+        <div style={{ ...S.container(), alignItems: 'center' }}>
+          <SectionTitle
+            tagline="Услуги"
+            heading="Что предлагает Яндекс Курьер"
+            text="Регистрация, найм и поддержка для всех."
+          />
+          {/* Cards */}
+          <div style={{ display: 'flex', gap: '32px', width: '100%' }}>
+            {[
+              { tag: 'Возраст', img: '/img/figma/service-card-1.png', h: 'Сколько лет нужно курьеру', p: 'Узнайте требования к возрасту', href: '/so-skolki-let' },
+              { tag: 'Заработок', img: '/img/figma/service-card-1.png', h: 'Сколько зарабатывает курьер', p: 'Прозрачный расчёт дохода', href: '/skolko-zarabatyvaet' },
+              { tag: 'Формат', img: '/img/figma/service-card-1.png', h: 'Выберите свой путь работы', p: 'Пеший, авто или велосипед', href: '/peshy-kurier' },
+            ].map((card) => (
+              <div key={card.tag} style={{ ...S.card(), flex: 1, background: '#F2F2F2' }}>
+                <div style={{ height: '233px', position: 'relative' }}>
+                  <Image src={card.img} alt={card.h} fill style={{ objectFit: 'cover' }} />
+                </div>
+                <div style={{ background: '#FFFFFF', padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <span style={S.tagline()}>{card.tag}</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <h3 style={S.h4()}>{card.h}</h3>
+                      <p style={S.textReg()}>{card.p}</p>
+                    </div>
+                  </div>
+                  <a href={card.href} style={S.btnLink()}>Подробнее →</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA 31 (1:1013): Начните зарабатывать ── */}
+      {/* bg #F2F2F2 */}
+      <section style={S.section('#F2F2F2')}>
+        <div style={{ maxWidth: '1312px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', background: '#FFFFFF', padding: '80px', borderRadius: '8px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px', width: '100%' }}>
+              <h2 style={S.h2()}>Начните зарабатывать сегодня</h2>
+              <p style={S.textMd()}>Подключитесь к официальной платформе Яндекс Курьер прямо сейчас</p>
+            </div>
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <a href={CTA_URL} style={S.btnPrimary()}>Зарегистрироваться</a>
+              <a href="#how" style={S.btnSecondary()}>Подробнее</a>
+            </div>
+          </div>
+          {/* CTA image below */}
+          <div style={{ marginTop: '32px', height: '400px', borderRadius: '8px', overflow: 'hidden', position: 'relative' }}>
+            <Image src="/img/figma/cta-bg.png" alt="Стать курьером" fill style={{ objectFit: 'cover' }} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── CALCULATOR embedded ── */}
       <Calculator />
 
-      {/* ── FAQ ── */}
-      <section className="py-[112px] bg-[#f2f2f2]">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="flex flex-col desktop:flex-row gap-16">
-            {/* Left: title */}
-            <div className="desktop:w-[380px] shrink-0">
-              <h2
-                className="text-[40px] desktop:text-[52px] leading-[1.2] text-[#2b2b2b] mb-4"
-                style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-              >
-                Вопросы
-              </h2>
-              <p className="text-[18px] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>
-                Ответы на главные вопросы о работе
-              </p>
-            </div>
-            {/* Right: accordion */}
-            <div className="flex-1">
-              <div className="grid desktop:grid-cols-2 gap-x-12 gap-y-8">
-                {[
-                  { q: 'Как зарегистрироваться курьером?', a: 'Перейдите на официальный сайт Яндекс Курьер и заполните форму регистрации. Потребуются паспорт и документы, подтверждающие личность. Процесс занимает несколько минут.' },
-                  { q: 'Какой минимальный возраст для работы?', a: 'Курьеру должно быть не менее 18 лет. Это требование закона для работы с доставкой. Проверка возраста происходит при верификации документов.' },
-                  { q: 'Как часто выплачивается заработок?', a: 'Деньги поступают на счёт ежедневно. Система автоматически рассчитывает доход за выполненные заказы. Вывести средства можно в любой момент.' },
-                  { q: 'Нужен ли собственный транспорт?', a: 'Нет, вы можете работать пешим курьером или взять транспорт в аренду у партнёров сервиса со скидкой.' },
-                  { q: 'Как получить бонус за привлечение?', a: 'Поделитесь своей реферальной ссылкой с другом. Когда он начнёт работать, вы получите 5 000 ₽ на счёт.' },
-                  { q: 'Есть ли страхование?', a: 'Да, прямые самозанятые курьеры застрахованы во время доставок. Дополнительная страховка доступна при выполнении определённого числа заказов.' },
-                ].map((item, i) => (
-                  <div key={i}>
-                    <h3
-                      className="text-[18px] font-semibold text-[#2b2b2b] mb-2"
-                      style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-                    >
-                      {item.q}
-                    </h3>
-                    <p
-                      className="text-[16px] leading-[1.5] text-[#555]"
-                      style={{ fontFamily: 'YS, Arial, sans-serif' }}
-                    >
-                      {item.a}
-                    </p>
+      {/* ── LAYOUT 398 (1:1023): Варианты — masonry cards ── */}
+      {/* bg white */}
+      <section style={S.section('#FFFFFF')}>
+        <div style={{ ...S.container(), alignItems: 'center' }}>
+          <SectionTitle
+            tagline="Варианты"
+            heading="Выберите свой путь работы"
+            text="Каждый формат имеет свои преимущества"
+          />
+          <div style={{ display: 'flex', gap: '32px', width: '100%', alignItems: 'flex-start' }}>
+            {[
+              [
+                { h: 'Полная занятость', p: 'Работайте 40+ часов в неделю и зарабатывайте максимум. Подходит тем, кто ищет основной стабильный доход.', tall: true },
+                { h: 'Частичная занятость', p: 'Несколько часов в день или только в выходные — идеально для подработки.', tall: false },
+              ],
+              [
+                { h: 'Студентам', p: 'Удобно совмещать с учёбой: выходите на смену между парами или по вечерам.', tall: false },
+                { h: 'Самозанятым', p: 'Оформите статус самозанятого и работайте официально с налоговой отчётностью.', tall: true },
+              ],
+              [
+                { h: 'Командная работа', p: 'Привлекайте знакомых — получайте бонус за каждого нового курьера.', tall: true },
+                { h: 'Сезонная работа', p: 'Выходите в пиковые периоды — праздники, высокий сезон, выходные.', tall: false },
+              ],
+            ].map((col, ci) => (
+              <div key={ci} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                {col.map((card) => (
+                  <div key={card.h} style={{
+                    border: '1px solid rgba(2,8,7,0.15)', borderRadius: '8px',
+                    background: '#FFFFFF', padding: '32px',
+                    minHeight: card.tall ? '280px' : '180px',
+                    display: 'flex', flexDirection: 'column', justifyContent: 'center',
+                  }}>
+                    <h3 style={{ ...S.h5(), marginBottom: '16px' }}>{card.h}</h3>
+                    <p style={S.textReg()}>{card.p}</p>
                   </div>
                 ))}
               </div>
-              <div className="mt-10">
-                <a
-                  href={CTA_URL}
-                  className="inline-block bg-[#fee334] hover:bg-[#e7cd21] text-[#000] rounded-[6px] px-[85px] py-[14px] text-[18px] transition-colors"
-                  style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-                >
-                  Стать курьером
-                </a>
-              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ 13 (1:1096) ── */}
+      {/* bg #F2F2F2 */}
+      <section style={S.section('#F2F2F2')}>
+        <div style={{ maxWidth: '1312px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '80px' }}>
+          {/* Title */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <h2 style={S.h2('left')}>Вопросы</h2>
+            <p style={S.textMd('left')}>Ответы на главные вопросы о работе</p>
+          </div>
+          {/* Questions grid */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '64px' }}>
+            {/* Row 1 */}
+            <div style={{ display: 'flex', gap: '48px' }}>
+              {[
+                { q: 'Как зарегистрироваться курьером?', a: 'Перейдите на официальный сайт Яндекс Курьер и заполните форму регистрации. Потребуются паспорт и документы, подтверждающие личность. Процесс занимает несколько минут.' },
+                { q: 'Какой минимальный возраст для работы?', a: 'Курьеру должно быть не менее 18 лет. Это требование закона для работы с доставкой. Проверка возраста происходит при верификации документов.' },
+                { q: 'Как часто выплачивается заработок?', a: 'Деньги поступают на счёт еженедельно. Система автоматически рассчитывает доход за выполненные заказы. Вывести средства можно в любой момент.' },
+              ].map((item) => (
+                <div key={item.q} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <h3 style={{ fontFamily: 'Inter, sans-serif', fontSize: '18px', fontWeight: 700, color: '#020807', lineHeight: '1.5' }}>{item.q}</h3>
+                  <p style={S.textReg()}>{item.a}</p>
+                </div>
+              ))}
+            </div>
+            {/* Row 2 */}
+            <div style={{ display: 'flex', gap: '48px' }}>
+              {[
+                { q: 'Нужен ли собственный транспорт?', a: 'Нет, можно работать пешком. Яндекс Курьер предлагает несколько форматов доставки. Выбирайте удобный вам способ работы.' },
+                { q: 'Как войти в личный кабинет?', a: 'Используйте номер телефона и пароль для входа на сайт. Личный кабинет доступен 24/7 через браузер. Там видны все заказы и заработки.' },
+                { q: 'Есть ли техническая поддержка?', a: 'Да, служба поддержки работает круглосуточно. Обратитесь через чат в приложении или на сайте. Специалисты помогут решить любую проблему.' },
+              ].map((item) => (
+                <div key={item.q} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <h3 style={{ fontFamily: 'Inter, sans-serif', fontSize: '18px', fontWeight: 700, color: '#020807', lineHeight: '1.5' }}>{item.q}</h3>
+                  <p style={S.textReg()}>{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* CTA at bottom */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '16px' }}>
+              <h3 style={S.h4()}>Остались вопросы?</h3>
+              <p style={S.textMd('left')}>Свяжитесь с нашей командой поддержки</p>
+            </div>
+            <div>
+              <a href={CTA_URL} style={S.btnSecondary()}>Связаться</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      <section className="py-[112px] bg-[#f2f2f2]">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="text-center mb-16">
-            <h2
-              className="text-[40px] desktop:text-[52px] leading-[1.2] text-[#2b2b2b] mb-4"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-            >
-              Отзывы курьеров
-            </h2>
-            <p
-              className="text-[18px] text-[#555]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Что говорят те, кто уже работает
-            </p>
+      {/* ── TESTIMONIALS 17 (1:1128) ── */}
+      {/* bg #F2F2F2 */}
+      <section style={S.section('#F2F2F2')}>
+        <div style={{ ...S.container(), alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px', width: '100%' }}>
+            <h2 style={S.h2()}>Отзывы курьеров</h2>
+            <p style={S.textMd()}>Что говорят те, кто уже работает</p>
           </div>
-          <div className="flex flex-col desktop:flex-row gap-8">
+          <div style={{ display: 'flex', gap: '32px', width: '100%', alignItems: 'stretch' }}>
             {[
-              {
-                quote: '"Работаю курьером три месяца, доход стабильный и выплаты приходят вовремя."',
-                name: 'Иван Петров',
-                role: 'Курьер, Москва',
-                avatar: '/img/figma/avatar-1.png',
-              },
-              {
-                quote: '"Удобно работать в своём графике, никаких лишних условий и требований."',
-                name: 'Алексей Смирнов',
-                role: 'Курьер, Санкт-Петербург',
-                avatar: '/img/figma/avatar-2.png',
-              },
-              {
-                quote: '"Поддержка помогает быстро, платформа работает без сбоев."',
-                name: 'Дмитрий Козлов',
-                role: 'Курьер, Екатеринбург',
-                avatar: '/img/figma/avatar-3.png',
-              },
-            ].map((t, i) => (
-              <div key={i} className="flex-1 bg-[#f2f2f2] border border-[rgba(2,8,7,0.15)] rounded-[8px] p-8 flex flex-col gap-6">
+              { quote: '"Работаю курьером три месяца, доход стабильный и выплаты приходят вовремя."', name: 'Иван Петров', role: 'Курьер, Москва', avatar: '/img/figma/avatar-1.png' },
+              { quote: '"Удобно работать в своём графике, никаких лишних условий и требований."', name: 'Алексей Смирнов', role: 'Курьер, Санкт-Петербург', avatar: '/img/figma/avatar-2.png' },
+              { quote: '"Поддержка помогает быстро, платформа работает без сбоев."', name: 'Дмитрий Козлов', role: 'Курьер, Екатеринбург', avatar: '/img/figma/avatar-3.png' },
+            ].map((t) => (
+              <div key={t.name} style={{
+                flex: 1, background: '#F2F2F2', border: '1px solid rgba(2,8,7,0.15)',
+                borderRadius: '8px', padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px',
+              }}>
                 {/* Stars */}
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, si) => (
-                    <span key={si} className="text-[#fee334] text-[20px]">★</span>
+                <div style={{ display: 'flex', gap: '4px', background: 'transparent' }}>
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="20" height="20" viewBox="0 0 20 20" fill="#FFCC00">
+                      <path d="M10 1l2.39 4.84 5.34.78-3.86 3.77.91 5.32L10 13.27l-4.78 2.52.91-5.32L2.27 6.62l5.34-.78z"/>
+                    </svg>
                   ))}
                 </div>
-                <p
-                  className="text-[18px] leading-[1.5] text-[#2b2b2b] flex-1"
-                  style={{ fontFamily: 'YS, Arial, sans-serif' }}
-                >
-                  {t.quote}
-                </p>
-                <div className="flex items-center gap-4">
-                  <Image
-                    src={t.avatar}
-                    alt={t.name}
-                    width={48}
-                    height={48}
-                    className="rounded-full object-cover w-12 h-12 shrink-0"
-                  />
-                  <div>
-                    <p className="text-[16px] font-semibold text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>{t.name}</p>
-                    <p className="text-[14px] text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>{t.role}</p>
+                <p style={{ ...S.textMd('left'), flex: 1 }}>{t.quote}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
+                    <Image src={t.avatar} alt={t.name} fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 600, color: '#020807' }}>{t.name}</span>
+                    <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 400, color: '#020807' }}>{t.role}</span>
                   </div>
                 </div>
               </div>
@@ -586,94 +576,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── COMPARISON TABLE ── */}
-      <section className="py-[112px] bg-white">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="text-center mb-16">
-            <h2
-              className="text-[40px] desktop:text-[52px] leading-[1.2] text-[#2b2b2b] mb-4"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-            >
-              Форматы работы в Яндекс Курьер
-            </h2>
-            <p
-              className="text-[18px] text-[#555]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Выберите подходящий вариант доставки
-            </p>
-          </div>
-          <div className="border border-[rgba(2,8,7,0.15)] rounded-[8px] overflow-hidden">
+      {/* ── COMPARISON 1 (1:1177) ── */}
+      {/* bg white */}
+      <section style={S.section('#FFFFFF')}>
+        <div style={{ ...S.container(), alignItems: 'center' }}>
+          <SectionTitle
+            heading="Форматы работы в Яндекс Курьер"
+            text="Выберите подходящий вариант доставки"
+          />
+          <div style={{ width: '100%' }}>
             {/* Header row */}
-            <div className="flex items-center bg-white border-b border-[rgba(2,8,7,0.15)]">
-              <div className="w-[440px] shrink-0 px-0 py-6 pr-6">
-                <span className="text-[18px] font-bold text-[#2b2b2b]" style={{ fontFamily: 'YSb, Arial, sans-serif' }}>Возможности</span>
+            <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(2,8,7,0.15)' }}>
+              <div style={{ width: '440px', flexShrink: 0, padding: '24px 24px 24px 0' }}>
+                <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '22px', fontWeight: 700, color: '#020807', lineHeight: '1.5' }}>Возможности</span>
               </div>
-              <div className="flex-1 px-6 py-6 text-center bg-white border-l border-[rgba(2,8,7,0.15)]">
-                <span className="text-[18px] font-bold text-[#2b2b2b]" style={{ fontFamily: 'YSb, Arial, sans-serif' }}>Яндекс</span>
-                <p className="text-[14px] text-[#555] mt-1" style={{ fontFamily: 'YS, Arial, sans-serif' }}>Официальная платформа</p>
+              <div style={{ flex: 1, padding: '24px', textAlign: 'center', background: '#FFFFFF', borderLeft: '1px solid rgba(2,8,7,0.15)' }}>
+                <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '22px', fontWeight: 700, color: '#020807' }}>Яндекс</div>
+                <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#020807', opacity: 0.6 }}>Официальная платформа</div>
               </div>
-              <div className="flex-1 px-6 py-6 text-center border-l border-[rgba(2,8,7,0.15)]">
-                <span className="text-[18px] font-bold text-[#2b2b2b]" style={{ fontFamily: 'YSb, Arial, sans-serif' }}>Другие</span>
-                <p className="text-[14px] text-[#555] mt-1" style={{ fontFamily: 'YS, Arial, sans-serif' }}>Прочие сервисы</p>
+              <div style={{ flex: 1, padding: '24px', textAlign: 'center', borderLeft: '1px solid rgba(2,8,7,0.15)' }}>
+                <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '22px', fontWeight: 700, color: '#020807' }}>Другие</div>
+                <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#020807', opacity: 0.6 }}>Прочие сервисы</div>
               </div>
             </div>
             {/* Data rows */}
-            {comparisonRows.map((row, i) => (
-              <div key={i} className="flex items-center border-b border-[rgba(2,8,7,0.15)] last:border-b-0">
-                <div className="w-[440px] shrink-0 py-4 pr-6">
-                  <span className="text-[16px] text-[#2b2b2b]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>{row.label}</span>
+            {[
+              { label: 'Гибкий график работы', yandex: true, others: true },
+              { label: 'Количество заказов в день', yandex: 'Неограниченно', others: 'До 10' },
+              { label: 'Ежедневные выплаты', yandex: true, others: false },
+              { label: 'Бонусы за новых курьеров', yandex: true, others: false },
+              { label: 'Страхование курьера', yandex: true, others: false },
+              { label: 'Юридическая поддержка', yandex: true, others: false },
+            ].map((row, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(2,8,7,0.15)' }}>
+                <div style={{ width: '440px', flexShrink: 0, padding: '16px 24px 16px 0' }}>
+                  <span style={S.textReg()}>{row.label}</span>
                 </div>
-                <div className="flex-1 py-4 px-6 text-center bg-white border-l border-[rgba(2,8,7,0.15)]">
-                  {typeof row.yandex === 'boolean' ? (
-                    row.yandex
-                      ? <span className="text-[20px]">✓</span>
-                      : <span className="text-[20px] text-[#999]">—</span>
-                  ) : (
-                    <span className="text-[15px] font-semibold text-[#2b2b2b]" style={{ fontFamily: 'YSm, Arial, sans-serif' }}>{row.yandex}</span>
-                  )}
+                <div style={{ flex: 1, padding: '16px 24px', textAlign: 'center', background: '#FFFFFF', borderLeft: '1px solid rgba(2,8,7,0.15)' }}>
+                  {typeof row.yandex === 'boolean'
+                    ? (row.yandex ? <span style={{ fontSize: '20px', color: '#020807' }}>✓</span> : <span style={{ fontSize: '20px', color: 'rgba(2,8,7,0.3)' }}>—</span>)
+                    : <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 600, color: '#020807' }}>{row.yandex}</span>
+                  }
                 </div>
-                <div className="flex-1 py-4 px-6 text-center border-l border-[rgba(2,8,7,0.15)]">
-                  {typeof row.others === 'boolean' ? (
-                    row.others
-                      ? <span className="text-[20px]">✓</span>
-                      : <span className="text-[20px] text-[#999]">—</span>
-                  ) : (
-                    <span className="text-[15px] font-semibold text-[#555]" style={{ fontFamily: 'YS, Arial, sans-serif' }}>{row.others}</span>
-                  )}
+                <div style={{ flex: 1, padding: '16px 24px', textAlign: 'center', borderLeft: '1px solid rgba(2,8,7,0.15)' }}>
+                  {typeof row.others === 'boolean'
+                    ? (row.others ? <span style={{ fontSize: '20px', color: '#020807' }}>✓</span> : <span style={{ fontSize: '20px', color: 'rgba(2,8,7,0.3)' }}>—</span>)
+                    : <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 400, color: '#020807' }}>{row.others}</span>
+                  }
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <a
-              href={CTA_URL}
-              className="inline-block border border-[rgba(2,8,7,0.15)] text-[#2b2b2b] hover:bg-[#f5f4f2] rounded-[6px] px-[85px] py-[14px] text-[18px] transition-colors"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Подробнее
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── MAIN FAQ (accordion) ── */}
-      <FAQ items={mainFAQ} title="Остались вопросы?" />
-
-      {/* ── TAGS ── */}
-      <section className="py-[50px]">
-        <div className="max-w-[1312px] mx-auto px-4 desktop:px-16">
-          <div className="flex flex-wrap items-center gap-[6px]">
-            {tags.map((tag, i) => (
-              <a
-                key={i}
-                href={CTA_URL}
-                className="bg-[#fee334] rounded-[30px] px-[12px] py-[7px] text-[13px] text-[#000] hover:opacity-80 transition-opacity"
-                style={{ fontFamily: 'YS, Arial, sans-serif', display: 'inline-block', textAlign: 'center' }}
-              >
-                {tag}
-              </a>
-            ))}
+          <div>
+            <a href={CTA_URL} style={S.btnSecondary()}>Подробнее</a>
           </div>
         </div>
       </section>

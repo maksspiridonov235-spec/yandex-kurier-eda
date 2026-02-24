@@ -3,9 +3,9 @@
 import { useState, useCallback } from 'react';
 
 const TYPE_RATES: Record<string, number> = {
-  '1': 472, // машина
-  '2': 412, // велосипед
-  '3': 320, // пеший
+  '1': 472,
+  '2': 412,
+  '3': 320,
 };
 
 const PEOPLE_BONUS = 5000;
@@ -18,151 +18,95 @@ export default function Calculator() {
 
   const total = TYPE_RATES[transport] * hours * days + people * PEOPLE_BONUS;
 
-  const formatNumber = (n: number) =>
-    n.toLocaleString('ru-RU');
+  const formatNumber = (n: number) => n.toLocaleString('ru-RU');
 
-  const SliderWithValue = useCallback(
-    ({
-      label,
-      value,
-      min,
-      max,
-      onChange,
-    }: {
-      label: string;
-      value: number;
-      min: number;
-      max: number;
-      onChange: (v: number) => void;
-    }) => {
-      const pct = ((value - min) / (max - min)) * 100;
-      return (
-        <div className="mb-[30px]">
-          <h4
-            className="text-[16px] text-[#2b2b2b] mb-[15px]"
-            style={{ fontFamily: 'YSm, Arial, sans-serif' }}
-          >
-            {label}
-          </h4>
-          <div className="relative">
-            <input
-              type="range"
-              min={min}
-              max={max}
-              value={value}
-              onChange={(e) => onChange(Number(e.target.value))}
-              className="w-full"
-              style={{
-                background: `linear-gradient(to right, #fce000 0%, #fce000 ${pct}%, #dee0e3 ${pct}%, #dee0e3 100%)`,
-              }}
-            />
-          </div>
-          <div className="flex justify-between text-xs text-[#9e9b98] mt-1">
-            <span>{min}</span>
-            <span
-              className="text-[#2b2b2b] font-bold text-[16px]"
-              style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-            >
-              {value}
-            </span>
-            <span>{max}</span>
-          </div>
+  const Slider = useCallback(({ label, value, min, max, onChange }: {
+    label: string; value: number; min: number; max: number; onChange: (v: number) => void;
+  }) => {
+    const pct = ((value - min) / (max - min)) * 100;
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <label style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 400, color: '#020807' }}>{label}</label>
+          <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '18px', fontWeight: 700, color: '#020807' }}>{value}</span>
         </div>
-      );
-    },
-    []
-  );
+        <input
+          type="range"
+          min={min}
+          max={max}
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          style={{
+            width: '100%',
+            background: `linear-gradient(to right, #FFCC00 0%, #FFCC00 ${pct}%, #dee0e3 ${pct}%, #dee0e3 100%)`,
+          }}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', color: 'rgba(2,8,7,0.4)' }}>{min}</span>
+          <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', color: 'rgba(2,8,7,0.4)' }}>{max}</span>
+        </div>
+      </div>
+    );
+  }, []);
 
   return (
-    <section className="pb-[50px]" id="calc">
-      <div className="max-w-[920px] mx-auto px-[15px]">
-        <h2
-          className="text-[40px] leading-[44px] mb-8 mt-14"
-          style={{ fontFamily: 'YS, Arial, sans-serif' }}
-        >
-          Калькулятор дохода
-        </h2>
-
-        <div
-          className="rounded-[24px] p-[28px]"
-          style={{ boxShadow: '0 4px 32px rgba(0,0,0,.08)', boxSizing: 'border-box' }}
-        >
-          {/* Transport select */}
-          <div className="mb-[30px]">
-            <h3
-              className="text-[20px] mb-[15px]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Как будете доставлять?
-            </h3>
-            <select
-              value={transport}
-              onChange={(e) => setTransport(e.target.value)}
-              className="w-full tablet:w-auto cursor-pointer appearance-none"
-              style={{
-                background: '#f5f4f2',
-                border: 'none',
-                borderRadius: '16px',
-                fontSize: '20px',
-                padding: '4px 0',
-                fontFamily: 'YS, Arial, sans-serif',
-                boxSizing: 'border-box',
-              }}
-            >
-              <option value="1">Машина — 472 ₽/ч</option>
-              <option value="2">Велосипед — 412 ₽/ч</option>
-              <option value="3">Пеший — 320 ₽/ч</option>
-            </select>
-          </div>
-
-          {/* Mode info */}
-          <div
-            className="mb-[30px]"
-            style={{
-              padding: '16px',
-              boxSizing: 'border-box',
-              borderRadius: '20px',
-              border: '3px solid #f5f4f2',
-            }}
-          >
-            <h4
-              className="text-[20px] mb-[10px]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Режим доставки — Когда смогу
-            </h4>
-            <p
-              className="text-[16px] text-[#555]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Можно начать в любое время и в любом месте. Доход зависит от количества выполненных заказов.
+    <section id="calc" style={{ background: '#FFFFFF', padding: '112px 64px' }}>
+      <div style={{ maxWidth: '1312px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '80px' }}>
+        {/* Title */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 600, color: '#020807' }}>Калькулятор</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <h2 style={{ fontFamily: 'Urbanist, sans-serif', fontSize: '52px', fontWeight: 500, color: '#020807', lineHeight: '1.2', letterSpacing: '-0.52px' }}>
+              Рассчитайте свой потенциальный доход
+            </h2>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '18px', color: '#020807', lineHeight: '1.5' }}>
+              Используйте интерактивный калькулятор для расчёта заработка в зависимости от выбранного формата работы.
             </p>
           </div>
+        </div>
 
-          {/* Sliders grid */}
-          <div className="flex flex-col tablet:flex-row justify-between gap-x-[30px]">
-            <div className="tablet:w-[47%]">
-              <SliderWithValue
-                label="Сколько часов в день планируете работать"
-                value={hours}
-                min={2}
-                max={12}
-                onChange={setHours}
-              />
-            </div>
-            <div className="tablet:w-[47%]">
-              <SliderWithValue
-                label="Количество дней в месяц"
-                value={days}
-                min={1}
-                max={31}
-                onChange={setDays}
-              />
+        {/* Calculator widget */}
+        <div style={{ background: '#F2F2F2', borderRadius: '8px', border: '1px solid rgba(2,8,7,0.15)', padding: '48px', display: 'flex', flexDirection: 'column', gap: '40px' }}>
+          {/* Transport */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <label style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 600, color: '#020807' }}>
+              Тип доставки
+            </label>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              {[
+                { val: '1', label: 'Автомобиль', rate: '472 ₽/ч' },
+                { val: '2', label: 'Велосипед', rate: '412 ₽/ч' },
+                { val: '3', label: 'Пеший', rate: '320 ₽/ч' },
+              ].map((opt) => (
+                <button
+                  key={opt.val}
+                  onClick={() => setTransport(opt.val)}
+                  style={{
+                    fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 500,
+                    color: '#020807', cursor: 'pointer', padding: '10px 20px',
+                    borderRadius: '6px', border: '1px solid rgba(2,8,7,0.15)',
+                    background: transport === opt.val ? '#FFCC00' : '#FFFFFF',
+                    transition: 'background 0.15s',
+                  }}
+                >
+                  {opt.label} — {opt.rate}
+                </button>
+              ))}
             </div>
           </div>
 
-          <SliderWithValue
-            label="Количество привлечённых людей (бонус 5 000 ₽ за каждого)"
+          {/* Sliders */}
+          <div style={{ display: 'flex', gap: '48px' }}>
+            <div style={{ flex: 1 }}>
+              <Slider label="Часов в день" value={hours} min={2} max={12} onChange={setHours} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <Slider label="Дней в месяц" value={days} min={1} max={31} onChange={setDays} />
+            </div>
+          </div>
+
+          <Slider
+            label="Привлечённых курьеров (бонус 5 000 ₽ каждый)"
             value={people}
             min={0}
             max={10}
@@ -170,32 +114,17 @@ export default function Calculator() {
           />
 
           {/* Result */}
-          <div
-            className="mt-4 rounded-[24px] p-[24px]"
-            style={{ background: '#f1f0ed', boxSizing: 'border-box' }}
-          >
-            <div className="flex flex-wrap items-center gap-4">
-              <h3
-                className="text-[16px] text-[#2b2b2b]"
-                style={{ fontFamily: 'YS, Arial, sans-serif', fontWeight: 'normal', marginBottom: 0 }}
-              >
-                Возможный доход
-              </h3>
-              <div
-                className="text-[44px] text-[#2b2b2b]"
-                style={{ fontFamily: 'YSb, Arial, sans-serif' }}
-              >
-                {formatNumber(total)} ₽
-              </div>
-            </div>
+          <div style={{ background: '#FFFFFF', borderRadius: '8px', padding: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid rgba(2,8,7,0.1)' }}>
+            <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '18px', fontWeight: 400, color: '#020807' }}>
+              Возможный доход в месяц
+            </span>
+            <span style={{ fontFamily: 'Urbanist, sans-serif', fontSize: '48px', fontWeight: 500, color: '#020807', letterSpacing: '-1px' }}>
+              {formatNumber(total)} ₽
+            </span>
           </div>
 
-          {/* Note */}
-          <p
-            className="mt-[20px] text-[13px] text-[#9e9b98] leading-relaxed"
-            style={{ fontFamily: 'YS, Arial, sans-serif' }}
-          >
-            Данные расчётов дохода являются максимальными. Результаты индивидуальны и могут отличаться от указанных, а также зависят от города, часов доставки и вида транспорта. Указан максимальный показатель дохода партнёров сервиса Яндекс.Еда на территории РФ на основе статистики за 5 месяцев. Чтобы узнать подробности, отправьте заявку.
+          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: 'rgba(2,8,7,0.5)', lineHeight: '1.5' }}>
+            Данные расчётов дохода являются максимальными. Результаты индивидуальны и зависят от города, часов доставки и вида транспорта.
           </p>
         </div>
       </div>

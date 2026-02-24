@@ -1,136 +1,113 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const CTA_URL =
   'https://reg.eda.yandex.ru/?advertisement_campaign=forms_for_agents&user_invite_code=fca82eaee048472d874ca86f874c62fe&utm_content=blank';
 
-export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
+const navLinks = [
+  { label: 'Вакансии', href: '/vakansii', external: false },
+  { label: 'Калькулятор', href: '/kalkulator', external: false },
+  { label: 'Отзывы', href: '/otzyvy', external: false },
+];
 
-  const handleAnchor = (id: string) => {
-    setMenuOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+const menuLinks = [
+  { label: 'Вакансии', href: '/vakansii' },
+  { label: 'Калькулятор', href: '/kalkulator' },
+  { label: 'Отзывы', href: '/otzyvy' },
+  { label: 'Заработок', href: '/skolko-zarabatyvaet' },
+  { label: 'Пеший курьер', href: '/peshy-kurier' },
+  { label: 'На автомобиле', href: '/na-avtomobile' },
+  { label: 'На велосипеде', href: '/na-velosipede' },
+  { label: 'Самозанятый', href: '/samozanyatiy' },
+  { label: 'Возраст', href: '/so-skolki-let' },
+];
+
+export default function Header() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <header
-      style={{ zIndex: 999999 }}
-      className="fixed top-0 left-0 w-full bg-white"
-    >
-      <div className="max-w-[920px] mx-auto px-[15px]">
-        <div className="flex items-center justify-between py-[15px]">
-          {/* Logo */}
-          <Link href="/" className="shrink-0">
-            <Image src="/img/logo.svg" alt="Яндекс Еда" width={120} height={36} priority />
+    <>
+      <header style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 999,
+        background: '#FFFFFF', borderBottom: '1px solid rgba(2,8,7,0.1)',
+        height: '72px', display: 'flex', alignItems: 'center', padding: '0 64px',
+      }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          width: '100%', maxWidth: '1312px', margin: '0 auto', gap: '32px',
+        }}>
+          {/* Left nav */}
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '32px', flex: 1 }}>
+            {navLinks.map((link) => (
+              <Link key={link.label} href={link.href} style={{
+                fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 400,
+                color: '#020807', textDecoration: 'none', lineHeight: '1.5',
+                whiteSpace: 'nowrap',
+              }}>
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Center: Logo */}
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}>
+            <span style={{
+              fontFamily: 'Inter, sans-serif', fontSize: '20px', fontWeight: 700,
+              color: '#020807', letterSpacing: '-0.5px',
+            }}>
+              Яндекс Курьер
+            </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden desktop:flex items-center">
-            {[
-              { label: 'Вопросы', onClick: () => handleAnchor('faq') },
-              { label: 'Калькулятор', onClick: () => handleAnchor('calc') },
-            ].map((item) => (
-              <div key={item.label} style={{ marginLeft: '16px' }}>
-                <button
-                  onClick={item.onClick}
-                  className="text-[#252525] hover:text-[#ddd] transition-colors cursor-pointer bg-transparent border-0 text-[16px]"
-                  style={{ fontFamily: 'YS, Arial, sans-serif' }}
-                >
-                  {item.label}
-                </button>
-              </div>
-            ))}
-            <div style={{ marginLeft: '16px' }}>
-              <a
-                href={CTA_URL}
-                className="text-[#252525] hover:text-[#ddd] transition-colors text-[16px]"
-                style={{ fontFamily: 'YS, Arial, sans-serif' }}
-              >
-                Стать курьером
-              </a>
-            </div>
-            <div style={{ marginLeft: '16px' }}>
-              <a
-                href={CTA_URL}
-                className="text-[#252525] text-[16px] hover:text-[#888] transition-colors border border-[#000] rounded-[3px] text-center"
-                style={{ fontFamily: 'YS, Arial, sans-serif', padding: '12px', boxSizing: 'border-box' }}
-              >
-                Свяжитесь с нами
-              </a>
-            </div>
-          </nav>
-
-          {/* Mobile: CTA + burger */}
-          <div className="flex desktop:hidden items-center gap-3">
-            <a
-              href={CTA_URL}
-              className="text-[#000] text-[14px] border border-[#000] rounded-[3px] px-[8px] py-[6px] text-center hover:opacity-80 transition-opacity"
-              style={{ fontFamily: 'YS, Arial, sans-serif', display: 'inline-block', boxSizing: 'border-box' }}
-            >
-              Свяжитесь с нами
-            </a>
+          {/* Right: Menu button */}
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
             <button
-              onClick={() => setMenuOpen(true)}
-              className="bg-transparent border-0 cursor-pointer w-[32px]"
-              aria-label="Открыть меню"
-              style={{ display: 'block' }}
+              onClick={() => setOpen(!open)}
+              style={{
+                fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 500,
+                color: '#020807', background: '#FFCC00', border: '1px solid #FFCC00',
+                borderRadius: '6px', padding: '4px 10px', cursor: 'pointer', lineHeight: '1.5',
+              }}
             >
-              <span className="block h-[3px] bg-[#000] mb-[4px] mx-[4px]" />
-              <span className="block h-[3px] bg-[#000] mb-[4px] mx-[4px]" />
-              <span className="block h-[3px] bg-[#000] mx-[4px]" />
+              Меню
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile menu overlay */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 bg-white flex flex-col"
-          style={{ zIndex: 1000000, padding: '40px 20px 20px 20px', boxSizing: 'border-box' }}
-        >
-          <div className="flex justify-end mb-8" style={{ position: 'relative' }}>
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="bg-transparent border-0 cursor-pointer"
-              aria-label="Закрыть меню"
-              style={{ position: 'absolute', top: '-25px', right: '0', width: '25px', height: '25px' }}
-            >
-              <span className="text-[#2b2b2b] text-3xl leading-none">✕</span>
-            </button>
+      {/* Menu dropdown */}
+      {open && (
+        <div style={{
+          position: 'fixed', top: '72px', left: 0, right: 0, bottom: 0,
+          background: '#FFFFFF', zIndex: 998, padding: '48px 64px', overflowY: 'auto',
+        }}>
+          <div style={{ maxWidth: '1312px', margin: '0 auto' }}>
+            <nav style={{ display: 'flex', flexDirection: 'column' }}>
+              {menuLinks.map((link) => (
+                <Link key={link.label} href={link.href} onClick={() => setOpen(false)} style={{
+                  fontFamily: 'Inter, sans-serif', fontSize: '18px', fontWeight: 400,
+                  color: '#020807', textDecoration: 'none',
+                  padding: '16px 0', borderBottom: '1px solid rgba(2,8,7,0.1)',
+                }}>
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <div style={{ marginTop: '32px' }}>
+              <a href={CTA_URL} onClick={() => setOpen(false)} style={{
+                display: 'inline-block', fontFamily: 'Inter, sans-serif',
+                fontSize: '16px', fontWeight: 500, color: '#020807',
+                background: '#FFCC00', border: '1px solid #FFCC00',
+                borderRadius: '6px', padding: '10px 24px', textDecoration: 'none',
+              }}>
+                Зарегистрироваться
+              </a>
+            </div>
           </div>
-          <nav className="flex flex-col" style={{ gap: '15px' }}>
-            <button
-              onClick={() => handleAnchor('faq')}
-              className="text-left text-[#252525] bg-transparent border-0 cursor-pointer text-[16px]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Вопросы
-            </button>
-            <a
-              href={CTA_URL}
-              onClick={() => setMenuOpen(false)}
-              className="text-[#252525] text-[16px]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Стать курьером
-            </a>
-            <button
-              onClick={() => handleAnchor('calc')}
-              className="text-left text-[#252525] bg-transparent border-0 cursor-pointer text-[16px]"
-              style={{ fontFamily: 'YS, Arial, sans-serif' }}
-            >
-              Калькулятор
-            </button>
-          </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }

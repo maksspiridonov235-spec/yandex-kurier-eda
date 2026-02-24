@@ -1,6 +1,5 @@
-import FAQ from '@/components/FAQ';
-import { FAQItem } from '@/components/FAQ';
 import Calculator from '@/components/Calculator';
+import { FAQItem } from '@/components/FAQ';
 
 const CTA_URL =
   'https://reg.eda.yandex.ru/?advertisement_campaign=forms_for_agents&user_invite_code=fca82eaee048472d874ca86f874c62fe&utm_content=blank';
@@ -15,18 +14,15 @@ export default function ClusterPage({ h1, children, faqItems }: ClusterPageProps
   return (
     <>
       {/* Article */}
-      <section className="pt-28 pb-12 desktop:pt-32 desktop:pb-16">
-        <div className="max-w-[920px] mx-auto px-4">
-          <h1
-            className="text-[40px] leading-[44px] mb-8 text-[#2b2b2b]"
-            style={{ fontFamily: 'YS, Arial, sans-serif' }}
-          >
+      <section style={{ background: '#FFFFFF', padding: '112px 64px', paddingTop: 'calc(112px + 72px)' }}>
+        <div style={{ maxWidth: '1312px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
+          <h1 style={{
+            fontFamily: 'Urbanist, sans-serif', fontSize: '72px', fontWeight: 500,
+            color: '#020807', lineHeight: '1.2', letterSpacing: '-0.72px',
+          }}>
             {h1}
           </h1>
-          <div
-            className="max-w-none text-[#555] leading-[1.3] space-y-4 text-[16px]"
-            style={{ fontFamily: 'YS, Arial, sans-serif' }}
-          >
+          <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '18px', color: '#020807', lineHeight: '1.6', maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {children}
           </div>
         </div>
@@ -36,32 +32,51 @@ export default function ClusterPage({ h1, children, faqItems }: ClusterPageProps
       <Calculator />
 
       {/* CTA block */}
-      <section className="py-12 bg-[#fee334]">
-        <div className="max-w-[920px] mx-auto px-4 text-center">
-          <h2
-            className="text-[40px] leading-[44px] mb-4 text-[#2b2b2b] mt-0"
-            style={{ fontFamily: 'YS, Arial, sans-serif' }}
-          >
-            Стать курьером Яндекс Еды
-          </h2>
-          <p
-            className="text-[#2b2b2b] mb-6 text-[16px] leading-[1.3]"
-            style={{ fontFamily: 'YS, Arial, sans-serif' }}
-          >
-            Свободный график, ежедневные выплаты, до 400 ₽ в час
-          </p>
-          <a
-            href={CTA_URL}
-            className="inline-block bg-[#2b2b2b] hover:opacity-80 text-white rounded-[5px] px-[85px] py-[14px] text-[18px] transition-opacity"
-            style={{ fontFamily: 'YS, Arial, sans-serif' }}
-          >
-            Оставить заявку
-          </a>
+      <section style={{ background: '#F2F2F2', padding: '112px 64px' }}>
+        <div style={{ maxWidth: '1312px', margin: '0 auto' }}>
+          <div style={{ background: '#FFFFFF', borderRadius: '8px', padding: '80px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', textAlign: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <h2 style={{ fontFamily: 'Urbanist, sans-serif', fontSize: '52px', fontWeight: 500, color: '#020807', lineHeight: '1.2', letterSpacing: '-0.52px' }}>
+                Начните зарабатывать сегодня
+              </h2>
+              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '18px', color: '#020807', lineHeight: '1.5' }}>
+                Подключитесь к официальной платформе Яндекс Курьер прямо сейчас
+              </p>
+            </div>
+            <a href={CTA_URL} style={{
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'Inter, sans-serif', fontSize: '16px', fontWeight: 500,
+              color: '#020807', background: '#FFCC00', border: '1px solid #FFCC00',
+              borderRadius: '6px', padding: '6px 24px', textDecoration: 'none',
+            }}>
+              Зарегистрироваться
+            </a>
+          </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <FAQ items={faqItems} title="Частые вопросы" />
+      <section style={{ background: '#F2F2F2', padding: '0 64px 112px' }}>
+        <div style={{ maxWidth: '1312px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <h2 style={{ fontFamily: 'Urbanist, sans-serif', fontSize: '52px', fontWeight: 500, color: '#020807', lineHeight: '1.2', letterSpacing: '-0.52px' }}>
+              Частые вопросы
+            </h2>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+            {faqItems.map((item, i) => (
+              <div key={i} style={{ padding: '24px 0', borderBottom: '1px solid rgba(2,8,7,0.15)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <h3 style={{ fontFamily: 'Inter, sans-serif', fontSize: '18px', fontWeight: 700, color: '#020807', lineHeight: '1.5' }}>
+                  {item.question}
+                </h3>
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', color: '#020807', lineHeight: '1.5', opacity: 0.7 }}
+                  dangerouslySetInnerHTML={{ __html: item.answer }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
